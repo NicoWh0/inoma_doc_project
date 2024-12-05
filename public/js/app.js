@@ -977,6 +977,16 @@ function Header() {
     _React$useState2 = _slicedToArray(_React$useState, 2),
     isAtTop = _React$useState2[0],
     setIsAtTop = _React$useState2[1];
+  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0___default().useState(false),
+    _React$useState4 = _slicedToArray(_React$useState3, 2),
+    isMenuOpen = _React$useState4[0],
+    setIsMenuOpen = _React$useState4[1];
+  var toggleMenu = function toggleMenu() {
+    console.log("toggleMenu");
+    setIsMenuOpen(function (isMenuOpen) {
+      return !isMenuOpen;
+    });
+  };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     var handleScroll = function handleScroll() {
       setIsAtTop(window.scrollY <= 0);
@@ -989,32 +999,75 @@ function Header() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("header", {
     id: "header",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("nav", {
-      className: "navbar ".concat(isAtTop ? "transparent" : "opaque"),
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
-        to: "/home",
-        className: "nav-logo-container",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
-          className: "logo",
-          src: "/images/logo.png",
-          alt: "Logo"
-        })
+      className: "navbar ".concat(isAtTop ? "transparent" : "opaque", " ").concat(isMenuOpen ? "menu-open" : ""),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "navbar-main-content",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+          to: "/home",
+          className: "nav-logo-container",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+            className: "logo",
+            src: "/images/logo.png",
+            alt: "Logo"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+          onClick: toggleMenu,
+          className: "nav-toggle",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+            children: "\u2261"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: "nav-menu",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("ul", {
+            className: "nav-menu-list",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+              className: "nav-item",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+                to: "/home",
+                className: "nav-link",
+                children: "Home"
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+              className: "nav-item",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+                to: "/login",
+                className: "nav-link",
+                children: "Login"
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+              className: "nav-item",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+                to: "/register",
+                className: "nav-link",
+                children: "Registrati"
+              })
+            })]
+          })
+        })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "nav-menu",
+        className: "mobile-menu ".concat(isMenuOpen ? "open" : ""),
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("ul", {
-          className: "nav-menu-list",
+          className: "mobile-menu-list",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
-            className: "nav-item",
+            className: "mobile-menu-item",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
               to: "/home",
-              className: "nav-link",
+              className: "mobile-menu-link",
               children: "Home"
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
-            className: "nav-item",
+            className: "mobile-menu-item",
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
               to: "/login",
-              className: "nav-link",
+              className: "mobile-menu-link",
               children: "Login"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("li", {
+            className: "mobile-menu-item",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+              to: "/register",
+              className: "mobile-menu-link",
+              children: "Registrati"
             })
           })]
         })
@@ -1062,8 +1115,11 @@ function Contact() {
       className: "contact-list",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("li", {
         className: "contact-item",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_icons_PhoneIcon__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          className: "contact-icon"
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "contact-icon-container",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_icons_PhoneIcon__WEBPACK_IMPORTED_MODULE_1__["default"], {
+            className: "contact-icon"
+          })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
           className: "contact-text",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
@@ -1073,8 +1129,11 @@ function Contact() {
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("li", {
         className: "contact-item",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_icons_MailingIcon__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          className: "contact-icon"
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "contact-icon-container",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_icons_MailingIcon__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            className: "contact-icon"
+          })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
           className: "contact-text",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
@@ -1084,11 +1143,14 @@ function Contact() {
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("li", {
         className: "contact-item",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_icons_LocationIcon__WEBPACK_IMPORTED_MODULE_3__["default"], {
-          className: "contact-icon"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "contact-icon-container",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_icons_LocationIcon__WEBPACK_IMPORTED_MODULE_3__["default"], {
+            className: "contact-icon"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
           className: "contact-text",
-          children: "Via Cavour 106, Gaglianico, 13894, Biella, Italia"
+          children: ["Via Cavour 106, Gaglianico,", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), " 13894, Biella, Italia"]
         })]
       })]
     })]
@@ -1331,7 +1393,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function LocationIcon(_ref) {
-  var className = _ref.className;
+  var className = _ref.className,
+    id = _ref.id;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
     className: className,
     xmlns: "http://www.w3.org/2000/svg",
@@ -1407,7 +1470,7 @@ function PhoneIcon(_ref) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
     className: className,
     xmlns: "http://www.w3.org/2000/svg",
-    viewBox: "0 0 473.806 473.806",
+    viewBox: "0 0 473.805 473.805",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("g", {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("g", {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
@@ -1483,7 +1546,7 @@ function Home() {
             }), " Integration"]
           }),
           description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
-            children: ["Inoma si occupa dell'integrazione di sistemi.", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), "Gli skill dei nostri competence center ci permettono di far dialogare tecnologie differenti con lo scopo di sfruttare le potenzialita di ognuna di esse.", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), "Integriamo sistemi nell'ambito dell'information tecnology (IT) e nell'ambito dell'automazione industriale."]
+            children: ["Inoma si occupa dell'integrazione di sistemi.", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), "La nostra esperienza ci consente di progettare soluzioni personalizzate, garantendo un'interconnessione efficace tra le infrastrutture. Grazie a un approccio modulare, affrontiamo ogni progetto valorizzando la complementarit\xE0 delle tecnologie impiegate.", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), "Gli skill dei nostri competence center ci permettono di far dialogare tecnologie differenti con lo scopo di sfruttare le potenzialita di ognuna di esse.", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), "Integriamo sistemi nell'ambito dell'information tecnology (IT) e nell'ambito dell'automazione industriale."]
           }),
           icon: "/images/icon_sys_integration.png"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_home_InfoBox__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -1495,7 +1558,7 @@ function Home() {
             }), " Engineering"]
           }),
           description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
-            children: ["Inoma si occupa della progettazione, minimizzazione e rinnovo dell'infrastruttura IT. La stretta con importanti vendor come Fujitsu, Lenovo e Zyxel, garantiscono al ciente finale soluzioni ad alto impatto tecnologico.", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), "La seniority dei nostri consulenti in ambiente Open Source e Microsoft \xE8 garanzia di competenza ed affidabilit\xE0, sia nell'ambito di infrastrutture fisiche che virtuali.", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), "I nostri consulenti vantano un'esperienza ventennale in merito a soluzioni enterprise che small business."]
+            children: ["Inoma si occupa della progettazione, minimizzazione e rinnovo dell'infrastruttura IT.", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), " La stretta con importanti vendor come Fujitsu, Lenovo e Zyxel, garantiscono al ciente finale soluzioni ad alto impatto tecnologico.", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), "La seniority dei nostri consulenti in ambiente Open Source e Microsoft \xE8 garanzia di competenza ed affidabilit\xE0, sia nell'ambito di infrastrutture fisiche che virtuali.", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), "I nostri consulenti vantano un'esperienza ventennale in merito a soluzioni enterprise che small business."]
           }),
           icon: "/images/icon_sys_engineering.png"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_home_InfoBox__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -1507,7 +1570,7 @@ function Home() {
             }), " Development"]
           }),
           description: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("p", {
-            children: ["Il nostro team di sviluppatori si compone di figure Senior, in grado di progettare prodotti di qualit\xE0, stabili e supportate da un preciso e puntuale servizio di assistenza.", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), " Soluzioni modulari, scalabili ed aperte, permettono flessibilit\xE0 d'uso ed evoluzioni innovative.", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), "Progettiamo e realizziamo applicazioni business-critical grazie all'ausilio di soluzioni High Availability, garanzia di continuit\xE0 e affidabilit\xE0 del servizio.", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), "Non rivendiamo software di terze parti ma sviluppiamo software cucito su misura."]
+            children: ["Inoma sviluppa sistemi Open Source.", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), "Il nostro team di sviluppatori si compone di figure Senior, in grado di progettare prodotti di qualit\xE0, stabili e supportate da un preciso e puntuale servizio di assistenza.", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), " Soluzioni modulari, scalabili ed aperte, permettono flessibilit\xE0 d'uso ed evoluzioni innovative.", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), "Progettiamo e realizziamo applicazioni business-critical grazie all'ausilio di soluzioni High Availability, garanzia di continuit\xE0 e affidabilit\xE0 del servizio.", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("br", {}), "Non rivendiamo software di terze parti ma sviluppiamo software cucito su misura."]
           }),
           icon: "/images/icon_open_source.png"
         })]

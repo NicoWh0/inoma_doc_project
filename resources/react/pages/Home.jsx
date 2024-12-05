@@ -27,6 +27,8 @@ export default function Home() {
                         description={
                             <p>
                                 Inoma si occupa dell'integrazione di sistemi.<br/><br/>
+                                La nostra esperienza ci consente di progettare soluzioni personalizzate, garantendo un'interconnessione efficace tra le infrastrutture.
+                                Grazie a un approccio modulare, affrontiamo ogni progetto valorizzando la complementarità delle tecnologie impiegate.<br/><br/>
                                 Gli skill dei nostri competence center ci permettono di far dialogare tecnologie differenti con lo scopo di sfruttare le potenzialita di ognuna di esse.<br/>
                                 Integriamo sistemi nell'ambito dell'information tecnology (IT) e nell'ambito dell'automazione industriale.
                             </p>
@@ -38,7 +40,7 @@ export default function Home() {
                         titleComponent={<span><span className="color-red">System</span> Engineering</span>}
                         description={
                             <p>
-                                Inoma si occupa della progettazione, minimizzazione e rinnovo dell'infrastruttura IT. La stretta con importanti vendor come Fujitsu, Lenovo e Zyxel, garantiscono al ciente finale soluzioni ad alto impatto tecnologico.<br/><br/>
+                                Inoma si occupa della progettazione, minimizzazione e rinnovo dell'infrastruttura IT.<br/><br/> La stretta con importanti vendor come Fujitsu, Lenovo e Zyxel, garantiscono al ciente finale soluzioni ad alto impatto tecnologico.<br/><br/>
                                 La seniority dei nostri consulenti in ambiente Open Source e Microsoft è garanzia di competenza ed affidabilità, sia nell'ambito di infrastrutture fisiche che virtuali.<br/>
                                 I nostri consulenti vantano un'esperienza ventennale in merito a soluzioni enterprise che small business.
                             </p>
@@ -50,6 +52,7 @@ export default function Home() {
                         titleComponent={<span><span className="color-red">Open Source</span> Development</span>}
                         description={
                             <p>
+                                Inoma sviluppa sistemi Open Source.<br/><br/>
                                 Il nostro team di sviluppatori si compone di figure Senior, in grado di progettare prodotti di qualità, stabili e supportate da un preciso e puntuale servizio di assistenza.<br/> Soluzioni modulari, scalabili ed aperte, permettono flessibilità d'uso ed evoluzioni innovative.<br/><br/>
                                 Progettiamo e realizziamo applicazioni business-critical grazie all'ausilio di soluzioni High Availability, garanzia di continuità e affidabilità del servizio.<br/>
                                 Non rivendiamo software di terze parti ma sviluppiamo software cucito su misura.
