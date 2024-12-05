@@ -1,0 +1,111 @@
+/*@tailwind base;
+@tailwind components;
+@tailwind utilities;*/
+
+body {
+    margin: 0;
+}
+
+.app {
+    height: 100%;
+    width: 100%;
+    background-color: #f7f7f7;
+    font-family: 'Raleway', sans-serif;
+}
+
+.navbar {
+    background-color: #e7e7e7cb;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 5rem;
+}
+
+.nav-logo-container {
+    height: 100%;
+    width: -moz-min-content;
+    width: min-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+            user-select: none;
+    padding-left: 1.5rem;
+}
+
+.nav-logo-container .logo {
+    height: 75%;
+    width: auto;
+}
+
+.nav-menu {
+    width: -moz-min-content;
+    width: min-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 100%;
+}
+
+.nav-menu-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+}
+
+.nav-item {
+    margin: 0 0.5rem;
+    cursor: pointer;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+            user-select: none;
+    font-size: 1.5em;
+    font-weight: 400;
+    text-decoration: none;
+}
+
+.nav-link, .nav-link:active, .nav-link:visited {
+    color: #919191;
+    text-shadow: 0.5px 0.5px 0.5px #00000080;
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    color: #c73333;
+    text-shadow: 0.8px 0.8px 0.8px #00000080;
+    transition: color 0.25s ease-in-out, text-shadow 0.25s ease-in-out;
+}
+
+.main-content {
+    height: 100vh;
+}
+
+footer {
+    background-color: #5e5e5e;
+    color: #ececec;
+    display: flex;
+    justify-content: center;
+}
+
+footer p {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+.privacy-link, .privacy-link:active, .privacy-link:visited {
+    font-weight: 600;
+    color: #e62222;
+    text-decoration: none;
+}
+
+.privacy-link:hover {
+    color: #d61f1f;
+    transition: color 0.25s ease-in-out;
+}
+
