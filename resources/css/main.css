@@ -1,10 +1,19 @@
-/*@tailwind base;
-@tailwind components;
-@tailwind utilities;*/
+:root {
+    --color-red: #ee1b1b;
+    --font-family: 'Raleway', sans-serif;
+}
 
 body {
     margin: 0;
-    font-family: 'Raleway', sans-serif;
+    font-family: var(--font-family);
+}
+
+.fixed {
+    position: fixed;
+}
+
+.color-red {
+    color: #ee1b1b;
 }
 
 .app {
@@ -22,7 +31,6 @@ body {
 }
 
 header {
-    position: fixed;
     top: 0;
     width: 100%;
     z-index: 50;
@@ -108,7 +116,7 @@ header {
 }
 
 .nav-link:hover {
-    color: #ee1b1b;
+    color: var(--color-red);
     text-shadow: 0.8px 0.8px 0.8px #00000080;
     transition: color 0.25s ease-in-out, text-shadow 0.25s ease-in-out;
 }
@@ -135,9 +143,9 @@ footer p {
     font-weight: 500;
 }
 
-.privacy-link, .privacy-link:active, .privacy-link:visited {
+.footer-link, .footer-link:active, .footer-link:visited {
     font-size: 1.1em;
-    font-family: 'Raleway', sans-serif;
+    font-family: var(--font-family);
     border: none;
     cursor: pointer;
     background-color: inherit;
@@ -146,7 +154,7 @@ footer p {
     text-decoration: none;
 }
 
-.privacy-link:hover {
+.footer-link:hover {
     color: #d61f1f;
     transition: color 0.25s ease-in-out;
 }
@@ -218,7 +226,7 @@ footer p {
 }
 
 .mobile-menu-item .mobile-menu-link:hover {
-    color: #ee1b1b;
+    color: var(--color-red);
     text-shadow: 0.3px 0.3px 0.3px #00000080;
     transition: color 0.25s ease-in-out, text-shadow 0.25s ease-in-out;
 }
@@ -277,7 +285,7 @@ footer p {
         font-size: 1em;
     }
 
-    .privacy-link {
+    .footer-link {
         font-size: 1em;
     }
 }

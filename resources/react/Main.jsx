@@ -1,17 +1,29 @@
-import React from "react";
-import { Routes, Route, Link, Navigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Routes, Route, Link, Navigate, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Registration';
 
 export default function Main() {
+
+    const [isHomePage, setIsHomePage] = useState(false);
+    const location = useLocation();
+
+    useEffect(() => {
+        setIsHomePage(location.pathname === "/home");
+    }, [location]);
+
     return (
         <div className="app">
-            <Header />
+            <Header isHomePage={isHomePage} />
             <div className="main-content">
                 <Routes>
                     <Route path="/home" element={<Home />} />
                     <Route path="/" element={<Navigate to="/home" />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
                     <Route path="*" element={<h1>Not Found</h1>} />
                 </Routes>
             </div>

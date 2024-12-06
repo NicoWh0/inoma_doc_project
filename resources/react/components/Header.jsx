@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { Link } from 'react-router-dom';
+import clsx from "clsx";
 
-export default function Header() {
+export default function Header({ isHomePage }) {
     const [isAtTop, setIsAtTop] = React.useState(true);
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
@@ -18,10 +19,18 @@ export default function Header() {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    })
+    });
+
+    const navbarClasses = clsx({
+        "navbar": true,
+        "transparent": isAtTop && isHomePage,
+        "opaque": !isAtTop || !isHomePage,
+        "menu-open": isMenuOpen,
+    });
+
     return (
-        <header id="header">
-            <nav className={`navbar ${isAtTop ? "transparent":"opaque"} ${isMenuOpen ? "menu-open" : ""}`}>
+        <header id="header" className={isHomePage ? "fixed":""}>
+            <nav className={navbarClasses}>
                 <div className="navbar-main-content">
                     <Link to="/home" className="nav-logo-container">
                         <img className="logo" src="/images/logo.png" alt="Logo" />

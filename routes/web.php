@@ -1,15 +1,11 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 
+//Per il client-side routing
 Route::get('/{any}', function () {
     return view('app');
 })->where('any', '.*');
 
-Route::get('/pdf/easy_profit.pdf', function () {
-    return response()->file(public_path('pdf/easy_profit.pdf'));
-});
-
-Route::get('/pdf/privacy.pdf', function () {
-    return response()->file(public_path('pdf/privacy.pdf'));
-});
+Route::post('api/register', [RegisterController::class, 'register'])->name('register');

@@ -1,0 +1,109 @@
+.registration-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    padding: 20px;
+}
+
+.registration-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.registration-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    padding: 1.5rem;
+    padding-right: 2rem;
+    border-radius: 0.5rem;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+}
+
+.registration-form .form-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 1.2rem;
+}
+
+.form-group .form-group-input-box {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.form-group-input-box input {
+    width: 70%;
+    font-size: 16px;
+    border-radius: 0.5rem;
+    border: #6c757d 1px solid;
+    height: 1.5rem;
+}
+
+.form-group-input-box input::placeholder {
+    color: #6c757d;
+    text-align: center;
+}
+
+.form-group-input-box input:active, .form-group-input-box input:focus {
+    outline: rgb(31, 31, 31);
+    border: rgb(31, 31, 31) 1px solid;
+    box-shadow: 0.5px 0.5px 0.5px rgb(87, 87, 87);
+}
+
+.form-group label {
+    user-select: none;
+    padding-right: 1.2rem;
+    font-size: 1.1em;
+}
+
+.form-group-description {
+    width: 100%;
+    text-align:end;
+}
+
+.form-text {
+    margin-top: 5px;
+    color: #6c757d;
+}
+
+.submit-button {
+    font-family: var(--font-family);
+    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+    background-color: rgb(255, 68, 68);
+    border-radius: 0.9rem;
+    border: 0.25px solid rgb(36, 36, 36);
+    color: #ffffff;
+    font-size: 1.2em;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    box-shadow: 0.5px 0.5px 0.5px 0.5px #490606e3;
+}
+
+.submit-button:hover {
+    background-color: rgb(255, 68, 68, 0.8);
+}
+
+.submit-button:active {
+    background-color: rgb(206, 16, 16);
+    color: rgb(206, 206, 206);
+    box-shadow: 0.5px 0.5px 0.5px 0.5px #490606e3 inset;
+}
+
+.registration-footer {
+    text-align: center;
+}
