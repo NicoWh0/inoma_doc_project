@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Hash;
 use Illuminate\Http\Request;
+use App\Models\User;
 use Validator;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -12,7 +15,7 @@ class RegisterController extends Controller
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|min:4|max:32|unique:users|regex:/^[a-zA-Z0-9]{4,32}$/',
             'email' => 'required|string|email|max:320|unique:users',
-            'password' => 'required|string|min:10|max:16|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{10,16}$/',
+            'password' => 'required|string|min:10|max:16|regex:/^(?=.*\d)(?=.*[!?@#$%&-_\.,;:])(?=.*[A-Z])(?=.*[a-z]).{10,16}$/',
             'confirmPassword' => 'required|same:password',
         ]);
 
@@ -21,6 +24,15 @@ class RegisterController extends Controller
         }
 
         //User creation
-        return response()->json(['message'=> 'User registered successfully'],200);
+        $user = User::create([
+            'username'=> $request->username,
+            'email'=> $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
+        Auth::login($user);
+        $user->sendEmailVerificationNotification();
+        //event(new Registered($user));
+        return response()->json(['message'=> 'User registered successfully. Please check your email to verify your account.'], 201);
     }
 }

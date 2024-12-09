@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, redirect, useNavigate } from 'react-router-dom';
 import '../../css/registration.css';
-import axios from "axios";
+import {instance as axios} from '../components/axios/AxiosInterceptor';
 
 export default function Registration() {
 
@@ -47,7 +47,7 @@ export default function Registration() {
                 if(e.target.validity.valueMissing) e.target.setCustomValidity("Inserire una password");
                 else {
                     testRegex(
-                        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{10,16}$/,
+                        /^(?=.*\d)(?=.*[!?@#$%&-_\.,;:])(?=.*[A-Z])(?=.*[a-z]).{10,16}$/,
                         value,
                         "La password deve contenere almeno 10 caratteri, una lettera maiuscola, una lettera minuscola, un numero e un carattere speciale",
                     e);
@@ -64,21 +64,17 @@ export default function Registration() {
         }
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         //submit to api
         console.log(formData);
-        //add the csrf token
-        axios.post('/api/register', formData, {
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-            }
-        }).then(response => {
-            console.log(response);
-            //useNavigate().navigate('/login'); Da usare con useEffect o qualcosa del genere
-        }).catch(error => {
-            console.log(error);
-        });
+
+        try {
+            const response = await axios.post('/register', formData);
+            console.log("Registration successful: ", response);
+        } catch (error) {
+            console.error("Error: ", error);
+        }
     }
 
     const handlePolicyClick = () => {

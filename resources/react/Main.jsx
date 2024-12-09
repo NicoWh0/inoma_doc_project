@@ -5,6 +5,8 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Registration';
+import EmailVerification from './pages/EmailVerification';
+import EmailVerificationNotification from "./pages/EmailVerificationNotification";
 
 export default function Main() {
 
@@ -24,6 +26,8 @@ export default function Main() {
                     <Route path="/" element={<Navigate to="/home" />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
+                    <Route path="/email/verify" element={<EmailVerificationNotification />} />
+                    <Route path="/email/verify/:id/:hash" element={<EmailVerification />} />
                     <Route path="*" element={<h1>Not Found</h1>} />
                 </Routes>
             </div>
