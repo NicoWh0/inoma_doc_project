@@ -12,6 +12,10 @@ body {
     position: fixed;
 }
 
+.sticky {
+    position: sticky;
+}
+
 .color-red {
     color: #ee1b1b;
 }
@@ -107,6 +111,23 @@ header {
     font-size: 1.5em;
     font-weight: 400;
     text-decoration: none;
+}
+
+.nav-button {
+    border: none;
+    cursor: pointer;
+    background-color: inherit;
+    font-family: var(--font-family);
+    font-size: inherit;
+    color: #797979;
+    text-shadow: 0.5px 0.5px 0.5px #00000080;
+    text-decoration: none;
+}
+
+.nav-button:hover {
+    color: var(--color-red);
+    text-shadow: 0.8px 0.8px 0.8px #00000080;
+    transition: color 0.25s ease-in-out, text-shadow 0.25s ease-in-out;
 }
 
 .nav-link, .nav-link:active, .nav-link:visited {
@@ -217,6 +238,23 @@ footer p {
     font-size: 1.1em;
     font-weight: 400;
     text-decoration: none;
+}
+
+.mobile-menu-list .mobile-menu-button {
+    border: none;
+    cursor: pointer;
+    background-color: inherit;
+    font-family: var(--font-family);
+    font-size: inherit;
+    color: #797979;
+    text-shadow: 0.2px 0.2px 0.2px #00000080;
+    text-decoration: none;
+}
+
+.mobile-menu-list .mobile-menu-button:hover {
+    color: var(--color-red);
+    text-shadow: 0.3px 0.3px 0.3px #00000080;
+    transition: color 0.25s ease-in-out, text-shadow 0.25s ease-in-out;
 }
 
 .mobile-menu-item .mobile-menu-link, .mobile-menu-item .mobile-menu-link:active, .mobile-menu-item .mobile-menu-link:visited {

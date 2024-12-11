@@ -125,7 +125,7 @@ export default function Registration() {
                     </div>
                     <div className="form-group-description">
                         <small className="form-text">
-                            Il nome utente deve contenere solo lettere o numeri.
+                            Il nome utente deve contenere solo lettere o numeri e deve essere composto da 4 a 32 caratteri.
                         </small>
                     </div>
                 </div>
@@ -144,7 +144,7 @@ export default function Registration() {
                     </div>
                     <div className="form-group-description">
                         <small className="form-text">
-                            La password deve contenere almeno 10 caratteri, una lettera maiuscola, una lettera minuscola, un numero e un carattere speciale.
+                            La password deve contenere dai 10 ai 16 caratteri, una lettera maiuscola e una minuscola, un numero e un carattere speciale.
                         </small>
                     </div>
                 </div>

@@ -32,7 +32,7 @@ class RegisterController extends Controller
 
         Auth::login($user);
         $user->sendEmailVerificationNotification();
-        //event(new Registered($user));
+
         return response()->json(['message'=> 'User registered successfully. Please check your email to verify your account.'], 201);
     }
 }

@@ -1,14 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Link } from 'react-router-dom';
+import { instance as axios } from '../components/axios/AxiosInterceptor';
+import { AuthContext } from '../contexts/AuthContext';
+import Cookies from 'js-cookie';
 import clsx from "clsx";
 
 export default function Header({ isHomePage }) {
     const [isAtTop, setIsAtTop] = React.useState(true);
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+    const { setUser, isAuthenticated } = useContext(AuthContext);
 
     const toggleMenu = () => {
         console.log("toggleMenu");
         setIsMenuOpen(isMenuOpen => !isMenuOpen);
+    }
+
+    const handleLogout = () => {
+        axios.delete('/logout')
+            .then(_res => {
+                console.log('Logout successful');
+                setUser(null);
+                Cookies.remove('XSRF-TOKEN');
+            })
+            .catch(error => {
+                console.error('Error logging out:', error);
+            });
     }
 
     useEffect(() => {
@@ -21,6 +37,76 @@ export default function Header({ isHomePage }) {
         };
     });
 
+    const getNavLinks = () => {
+        if (isAuthenticated) {
+            return (
+                <>
+                    <li className="nav-item">
+                        <Link to="/home" className="nav-link">Home</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/documentation" className="nav-link">Documentazione</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/profile" className="nav-link">Profilo</Link>
+                    </li>
+                    <li className="nav-item">
+                        <button onClick={handleLogout} className="nav-button">Logout</button>
+                    </li>
+                </>
+            );
+        } else {
+            return (
+                <>
+                    <li className="nav-item">
+                        <Link to="/home" className="nav-link">Home</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/login" className="nav-link">Login</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/register" className="nav-link">Registrati</Link>
+                    </li>
+                </>
+            )
+        }
+    }
+
+    const getNavMobileLinks = () => {
+        if(isAuthenticated) {
+            return (
+                <>
+                    <li className="mobile-menu-item">
+                        <Link to="/home" className="mobile-menu-link">Home</Link>
+                    </li>
+                    <li className="mobile-menu-item">
+                        <Link to="/documentation" className="mobile-menu-link">Documentazione</Link>
+                    </li>
+                    <li className="mobile-menu-item">
+                        <Link to="/profile" className="mobile-menu-link">Profilo</Link>
+                    </li>
+                    <li className="mobile-menu-item">
+                        <button onClick={handleLogout} className="mobile-menu-button">Logout</button>
+                    </li>
+                </>
+            )
+        } else {
+            return (
+                <>
+                    <li className="mobile-menu-item">
+                        <Link to="/home" className="mobile-menu-link">Home</Link>
+                    </li>
+                    <li className="mobile-menu-item">
+                        <Link to="/login" className="mobile-menu-link">Login</Link>
+                    </li>
+                    <li className="mobile-menu-item">
+                        <Link to="/register" className="mobile-menu-link">Registrati</Link>
+                    </li>
+                </>
+            )
+        }
+    }
+
     const navbarClasses = clsx({
         "navbar": true,
         "transparent": isAtTop && isHomePage,
@@ -28,8 +114,9 @@ export default function Header({ isHomePage }) {
         "menu-open": isMenuOpen,
     });
 
+
     return (
-        <header id="header" className={isHomePage ? "fixed":""}>
+        <header id="header" className={isHomePage ? "fixed":"sticky"}>
             <nav className={navbarClasses}>
                 <div className="navbar-main-content">
                     <Link to="/home" className="nav-logo-container">
@@ -38,29 +125,13 @@ export default function Header({ isHomePage }) {
                     <button onClick={toggleMenu} className="nav-toggle"><p>≡</p></button>
                     <div className="nav-menu">
                         <ul className="nav-menu-list">
-                            <li className="nav-item">
-                                <Link to="/home" className="nav-link">Home</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="/login" className="nav-link">Login</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="/register" className="nav-link">Registrati</Link>
-                            </li>
+                            {getNavLinks()}
                         </ul>
                     </div>
                 </div>
                 <div className={`mobile-menu ${isMenuOpen ? "open" : ""}`}>
                     <ul className="mobile-menu-list">
-                        <li className="mobile-menu-item">
-                            <Link to="/home" className="mobile-menu-link">Home</Link>
-                        </li>
-                        <li className="mobile-menu-item">
-                            <Link to="/login" className="mobile-menu-link">Login</Link>
-                        </li>
-                        <li className="mobile-menu-item">
-                            <Link to="/register" className="mobile-menu-link">Registrati</Link>
-                        </li>
+                        {getNavMobileLinks()}
                     </ul>
                 </div>
             </nav>

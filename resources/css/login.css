@@ -1,0 +1,138 @@
+.login-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    padding: 20px;
+}
+
+.login-title {
+    padding: 0 1rem;
+    text-align: center;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    padding: 1.5rem;
+    padding-right: 2rem;
+    border-radius: 0.5rem;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 1rem;
+}
+
+.login-form .form-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 1.2rem;
+}
+
+.login-form .form-group input {
+    height: 1.5rem;
+    width: 50%;
+}
+
+.login-form .form-group input:focus {
+    outline: none;
+    box-shadow: 0 0 1.2px 1.5px #fc4848;
+}
+
+.login-form .form-group input::placeholder {
+    font-family: var(--font-family);
+}
+
+.login-form .form-group label {
+    width: 51%;
+    margin-bottom: 0.1rem;
+}
+
+.login-form .login-submit-btn {
+    font-family: var(--font-family);
+    width: 60%;
+    margin-top: 1rem;
+    font-size: 1.1em;
+    font-weight: 600;
+    background-color: #ff4444;
+    border-radius: 3.5px;
+    padding: 0.35rem 0.8rem;
+    border: 0.1px solid #6b6b6b;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    color: #ffffff;
+    box-shadow: 0.25px 0.25px 0.25px #4b4b4b;
+}
+
+.login-form .login-submit-btn:hover {
+    background-color: #fa5e5e;
+}
+
+.login-form .login-submit-btn:active {
+    transition: none;
+    background-color: #ce2a2a;
+    color: #afafaf;
+    box-shadow: 0.25px 0.25px 0.25px #4b4b4b inset;
+}
+
+.login-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.login-footer .login-footer-text {
+    text-align: center;
+    padding: 0 1rem;
+}
+
+
+@media screen and (max-width: 1120px) {
+    .login-form {
+        width: 65%;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .login-form .form-group input {
+        width: 70%;
+    }
+
+    .login-form .form-group label {
+        width: 71%;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .login-form {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 365px) {
+    .login-form .form-group input {
+        width: 75%;
+        font-size: 0.9em;
+    }
+
+    .login-form .form-group input::placeholder {
+        font-size: 0.9em;
+    }
+
+    .login-form .form-group label {
+        width: 76%;
+        font-size: 0.9em;
+    }
+}
+
+
+

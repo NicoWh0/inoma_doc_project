@@ -4,17 +4,17 @@ import { BrowserRouter } from 'react-router-dom';
 import ReactDOM from 'react-dom/client';
 import Main from './Main';
 import { AxiosInterceptor } from './components/axios/AxiosInterceptor';
-import { MessageContext, MessageProvider } from './contexts/MessageContext';
+import { AuthProvider } from './contexts/AuthContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <BrowserRouter>
-            <MessageProvider>
+            <AuthProvider>
                 <AxiosInterceptor>
                     <Main />
                 </AxiosInterceptor>
-            </MessageProvider>
+            </AuthProvider>
         </BrowserRouter>
     </React.StrictMode>
 );

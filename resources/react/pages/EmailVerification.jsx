@@ -5,9 +5,6 @@ import { useParams } from 'react-router-dom';
 export default function EmailVerification() {
     const { id, hash } = useParams();
 
-    console.log('id:', id);
-    console.log('hash:', hash);
-
     useEffect(() => {
         axios.get(`/email/verify/${id}/${hash}`)
             .then(response => {
@@ -21,7 +18,7 @@ export default function EmailVerification() {
     return (
         <>
             <h1>Email Verification</h1>
-            <p>The mail has been verified</p>
+            <p>Verification in process...</p>
         </>
     );
 };
