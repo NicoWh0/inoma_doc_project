@@ -8,7 +8,7 @@ import clsx from "clsx";
 export default function Header({ isHomePage }) {
     const [isAtTop, setIsAtTop] = React.useState(true);
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-    const { setUser, isAuthenticated } = useContext(AuthContext);
+    const { setUser, isAuthenticated, done } = useContext(AuthContext);
 
     const toggleMenu = () => {
         console.log("toggleMenu");
@@ -38,7 +38,8 @@ export default function Header({ isHomePage }) {
     });
 
     const getNavLinks = () => {
-        if (isAuthenticated) {
+        if(!done) return null;
+        else if (isAuthenticated) {
             return (
                 <>
                     <li className="nav-item">
@@ -73,7 +74,8 @@ export default function Header({ isHomePage }) {
     }
 
     const getNavMobileLinks = () => {
-        if(isAuthenticated) {
+        if(!done) return null;
+        else if(isAuthenticated) {
             return (
                 <>
                     <li className="mobile-menu-item">

@@ -35,6 +35,10 @@ Route::get('/email/verify', function () {
 
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 
+Route::post('/enable-2fa', [LoginController::class, 'enable2FA'])->name('enable-2fa');
+
+Route::post('/disable-2fa', [LoginController::class, 'disable2FA'])->name('disable-2fa');
+
 Route::delete('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/test-protected-route', function () {

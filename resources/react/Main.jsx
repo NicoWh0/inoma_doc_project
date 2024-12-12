@@ -2,14 +2,21 @@ import React, { useState, useEffect } from "react";
 import { Routes, Route, Link, Navigate, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Registration';
-import EmailVerification from './pages/EmailVerification';
-import EmailVerificationNotification from "./pages/EmailVerificationNotification";
-import NotFound from "./pages/NotFound";
-import EmailVerified from "./pages/EmailVerified";
+import {
+    NotFound,
+    Home,
+    Login,
+    Registration,
+    EmailVerification,
+    EmailVerificationNotification,
+    EmailVerified,
+    Profile,
+    Enable2FA
+
+} from './pages';
 import ScrollToTop from "./components/utils/ScrollToTop";
+import ProtectedRoute from "./components/navigation/ProtectedRoute";
+
 
 export default function Main() {
 
@@ -29,10 +36,12 @@ export default function Main() {
                     <Route path="/home" element={<Home />} />
                     <Route path="/" element={<Navigate to="/home" />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
+                    <Route path="/register" element={<Registration />} />
                     <Route path="/email/verify/notice" element={<EmailVerificationNotification />} />
                     <Route path="/email/verify/:id/:hash" element={<EmailVerification />} />
                     <Route path="/email/verify/success" element={<EmailVerified />} />
+                    <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+                    <Route path="/enable-2fa" element={<Enable2FA />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import {instance as axios } from '../components/axios/AxiosInterceptor';
+import { instance as axios } from '../../components/axios/AxiosInterceptor';
 import { useParams } from 'react-router-dom';
 
 export default function EmailVerification() {

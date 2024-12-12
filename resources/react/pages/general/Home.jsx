@@ -1,8 +1,8 @@
 import React from "react";
-import SlideShow from "../components/home/SlideShow";
-import InfoBox from "../components/home/InfoBox";
-import EasyProfit from "../components/home/EasyProfit";
-import Contact from "../components/home/Contact";
+import SlideShow from "../../components/home/SlideShow";
+import InfoBox from "../../components/home/InfoBox";
+import EasyProfit from "../../components/home/EasyProfit";
+import Contact from "../../components/home/Contact";
 
 export default function Home() {
     return (

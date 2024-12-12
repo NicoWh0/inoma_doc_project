@@ -1,8 +1,8 @@
 import React, {useState, useContext } from "react";
-import "../../css/login.css";
+import "../../../css/login.css";
 import { Link } from "react-router-dom";
-import { instance as axios, setCSRFToken } from "../components/axios/AxiosInterceptor";
-import { AuthContext } from "../contexts/AuthContext";
+import { instance as axios } from "../../components/axios/AxiosInterceptor";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export default function Login() {
 
@@ -21,7 +21,6 @@ export default function Login() {
             .then(response => {
                 console.log(response);
                 setUser(response.data.user);
-                setCSRFToken();
             })
             .catch(error => {
                 console.error(error);
