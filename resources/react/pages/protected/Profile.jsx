@@ -4,7 +4,7 @@ import { instance as axios } from '../../components/axios/AxiosInterceptor';
 import { AuthContext } from '../../contexts/AuthContext';
 import Loader from '../../components/general/Loader';
 import UsernameForm from '../../components/profile/UsernameForm';
-import '../../../css/profile.css';
+
 
 function UsernameSuccess({setUsernameSuccess, visible}) {
     const handleClosure = () => {
@@ -98,7 +98,7 @@ export default function Profile() {
                         <div className="profile-info">
                             <div className="profile-username-header">
                                 <p className="profile-info-value"><span className="color-red bold">Username:</span> {user.username}</p>
-                                <button onClick={handleToggleUsernameForm} className="profile-username-button">
+                                <button onClick={handleToggleUsernameForm} className="profile-button">
                                     <span>{isUsernameFormOpen ? "Annulla" : "Modifica"}</span>
                                 </button>
                             </div>
@@ -121,16 +121,18 @@ export default function Profile() {
                     <div className="profile-auth-container">
                         <h2>Accesso e <span className="color-red">Sicurezza</span></h2>
                         <div className="profile-change-password">
-                            <h4>Modifica password</h4>
+                            <h4><span className="color-red">Password:</span> **********</h4>
                             <div className="profile-info">
-                                <button className="profile-button">Modifica</button>
+                                <button className="profile-button"><span>Modifica</span></button>
                             </div>
                         </div>
                         <div className="profile-2fa">
-                            <h4>Autenticazione a due fattori</h4>
-                            <div className="profile-info">
-                                <p><span className="color-red">Stato:</span> Abilitata</p>
-                                <button className="profile-button">Disabilita</button>
+                            <h4>Autenticazione a <span className="color-red">due fattori</span></h4>
+                            <div className="profile-2fa-info">
+                                <p><span className="color-red bold">Stato: </span> {user.google2fa_enabled ? "Abilitata" : "Disabilitata"}</p>
+                                <Link to={user.google2fa_enabled ? "/disable-2fa" : "/enable-2fa"} className="profile-button">
+                                    <span>{user.google2fa_enabled ? "Disabilita" : "Abilita"}</span>
+                                </Link>
                             </div>
                         </div>
                     </div>

@@ -1,8 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-//import { MessageContext } from '../../contexts/MessageContext';
 
 const instance = axios.create({
     baseURL: 'http://localhost:8000/',
@@ -38,6 +37,7 @@ const AxiosInterceptor = ({ children }) => {
         const configUse = instance.interceptors.request.use(onRequest);
         const interceptors = instance.interceptors.response.use(
             response => {
+                console.log('Axios: Response received from path: ', response.config.url);
                 switch(true) {
                     case response.config.url === '/register' && response.status === 201:
                         console.log('Axios: Registration successful');
@@ -45,11 +45,20 @@ const AxiosInterceptor = ({ children }) => {
                         break;
                     case response.config.url === '/login' && response.status === 200:
                         console.log('Axios: Login successful');
+                        if(response.data.require2fa) navigate('/page-2fa?context=login');
+                        else navigate('/profile');
+                        break;
+                    case response.config.url === '/login/2fa' && response.status === 200:
+                        console.log('Axios: 2FA successful');
                         navigate('/profile');
                         break;
                     case response.config.url === '/logout' && response.status === 200:
                         console.log('Axios: Logout successful');
                         navigate('/login');
+                        break;
+                    case response.config.url === '/user/me/disable-2fa' && response.status === 200:
+                        console.log('Axios: 2FA disabled');
+                        navigate('/profile');
                         break;
                     case /\/email\/verify\/[0-9]+\/[^\/]+/.test(response.config.url) && response.status === 200:
                         console.log('Axios: Email verification');

@@ -1,5 +1,4 @@
 import React from 'react';
-import '../../../css/email-verify-notice.css';
 import { instance as axios } from '../../components/axios/AxiosInterceptor';
 
 export default function EmailVerificationNotification() {

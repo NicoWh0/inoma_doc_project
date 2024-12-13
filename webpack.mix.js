@@ -17,4 +17,22 @@ mix.js('resources/react/app.js', 'public/js').react()
     ])
     .postCss('resources/css/home.css', 'public/css', [
         require("tailwindcss"),
-    ]);
+    ])
+    .postCss('resources/css/login.css', 'public/css', [
+        require("tailwindcss"),
+    ])
+    .postCss('resources/css/registration.css', 'public/css', [
+        require("tailwindcss"),
+    ])
+    .postCss('resources/css/email-verify-notice.css', 'public/css', [
+        require("tailwindcss"),
+    ])
+    .postCss('resources/css/notfound.css', 'public/css', [
+        require("tailwindcss"),
+    ])
+    .postCss('resources/css/profile.css', 'public/css', [
+        require("tailwindcss"),
+    ])
+    .postCss('resources/css/page2fa.css', 'public/css', [
+        require("tailwindcss"),
+    ])

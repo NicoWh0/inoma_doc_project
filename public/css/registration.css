@@ -1,0 +1,178 @@
+.registration-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    padding: 20px;
+}
+
+.registration-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.registration-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    padding: 1.5rem;
+    padding-right: 2rem;
+    border-radius: 0.5rem;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+}
+
+.registration-form .form-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 1.2rem;
+}
+
+.registration-form .form-group .form-group-input-box {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.registration-form .form-group-input-box input {
+    width: 70%;
+    font-size: 16px;
+    border-radius: 3.5px;
+    border: #6c757d 1px solid;
+    height: 1.5rem;
+    padding-left: 0.4rem;
+}
+
+.registration-form .form-group-input-box input::-moz-placeholder {
+    color: #6c757d;
+    text-align: start;
+}
+
+.registration-form .form-group-input-box input::placeholder {
+    color: #6c757d;
+    text-align: start;
+}
+
+.registration-form .form-group-input-box input:focus {
+    outline: none;
+    box-shadow: 0 0 1.2px 1.5px #fc4848;
+}
+
+.registration-form .form-group label {
+    -webkit-user-select: none;
+       -moz-user-select: none;
+            user-select: none;
+    padding-right: 1.2rem;
+    font-size: 1.1em;
+}
+
+.registration-form .form-group-description {
+    width: 100%;
+    text-align:end;
+}
+
+.registration-form .form-text {
+    margin-top: 5px;
+    color: #6c757d;
+}
+
+.registration-form .submit-button {
+    font-family: var(--font-family);
+    width: 100%;
+    padding: 10px;
+    cursor: pointer;
+    background-color: rgb(255, 68, 68);
+    border-radius: 3.5px;
+    border: 1px solid rgb(36, 36, 36);
+    color: #ffffff;
+    font-size: 1.2em;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    box-shadow: 0.3px 0.3px 0.3px #2e2e2ee3;
+    transition: background-color 0.3s;
+}
+
+.registration-form .submit-button:hover {
+    background-color: rgb(255, 68, 68, 0.8);
+}
+
+.registration-form .submit-button:active {
+    transition: none;
+    background-color: rgb(206, 16, 16);
+    color: rgb(206, 206, 206);
+    box-shadow: 0.3px 0.3px 0.3px #2e2e2ee3 inset;
+}
+
+.registration-footer {
+    text-align: center;
+}
+
+
+@media screen and (max-width: 1400px) {
+    .registration-form .form-group .form-group-input-box {
+        flex-direction: column;
+        text-align: start;
+    }
+
+    .registration-form .form-group-input-box label {
+        padding: 0;
+        width: 71.5%;
+    }
+
+    .registration-form .form-group-description {
+        width: 72%;
+        text-align: start;
+    }
+}
+
+
+@media screen and (max-width: 800px) {
+    .registration-form {
+        width: 75%;
+    }
+
+    .registration-form .form-group-input-box input {
+        width: 91%;
+    }
+
+    .registration-form .form-group .form-group-input-box {
+        flex-direction: column;
+        text-align: start;
+    }
+
+    .registration-form .form-group-input-box label {
+        padding: 0;
+        width: 92%;
+    }
+
+    .registration-form .form-group-description {
+        width: 92%;
+        text-align: start;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .registration-form .form-group-input-box input {
+        height: 1.3rem;
+    }
+
+    .registration-form .form-group-input-box input::-moz-placeholder {
+        font-size: 0.9em;
+    }
+
+    .registration-form .form-group-input-box input::placeholder {
+        font-size: 0.9em;
+    }
+
+}
+

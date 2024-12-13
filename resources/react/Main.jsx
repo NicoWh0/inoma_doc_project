@@ -11,21 +11,26 @@ import {
     EmailVerificationNotification,
     EmailVerified,
     Profile,
-    Enable2FA
+    Enable2FA,
+    Disable2FA,
+    Page2FA,
+    Documentation
 
 } from './pages';
 import ScrollToTop from "./components/utils/ScrollToTop";
 import ProtectedRoute from "./components/navigation/ProtectedRoute";
-import Documentation from "./pages/protected/Documentation";
+
 
 
 export default function Main() {
 
     const [isHomePage, setIsHomePage] = useState(false);
+    const [isProfilePage, setIsProfilePage] = useState(false);
     const location = useLocation();
 
     useEffect(() => {
         setIsHomePage(location.pathname === "/home");
+        setIsProfilePage(location.pathname === "/profile");
     }, [location]);
 
     return (
@@ -43,11 +48,13 @@ export default function Main() {
                     <Route path="/email/verify/success" element={<ProtectedRoute><EmailVerified /></ProtectedRoute>} />
                     <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
                     <Route path="/enable-2fa" element={<ProtectedRoute><Enable2FA /></ProtectedRoute>} />
+                    <Route path="/disable-2fa" element={<ProtectedRoute><Disable2FA/></ProtectedRoute>} />
                     <Route path="/documentation" element={<ProtectedRoute><Documentation/></ProtectedRoute>} />
+                    <Route path="/page-2fa" element={<Page2FA />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>
-            <Footer />
+            <Footer isProfilePage={isProfilePage}/>
         </div>
     );
 }

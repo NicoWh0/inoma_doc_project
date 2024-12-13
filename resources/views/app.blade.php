@@ -16,7 +16,12 @@
         <!-- Styles / Scripts -->
         <link href="{{ mix('css/main.css') }}" rel="stylesheet">
         <link href="{{ mix('css/home.css') }}" rel="stylesheet">
-
+        <link href="{{ mix('css/login.css') }}" rel="stylesheet">
+        <link href="{{ mix('css/registration.css') }}" rel="stylesheet">
+        <link href="{{ mix('css/email-verify-notice.css') }}" rel="stylesheet">
+        <link href="{{ mix('css/notfound.css') }}" rel="stylesheet">
+        <link href="{{ mix('css/profile.css') }}" rel="stylesheet">
+        <link href="{{ mix('css/page2fa.css') }}" rel="stylesheet">
     </head>
     <body>
         <div id="root"></div>

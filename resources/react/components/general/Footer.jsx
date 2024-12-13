@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 
-export default function Footer() {
+export default function Footer({isProfilePage}) {
 
     const handleClickPrivacy = () => {
         window.open('/pdf/privacy.pdf', '_blank');
@@ -12,7 +12,7 @@ export default function Footer() {
     }
 
     return (
-        <footer id="footer">
+        <footer id="footer" className={isProfilePage ? "no-margin-top border-shadow-top" : ""}>
             <p>
                 Copyright @ 2024 Inoma srl. Tutti i diritti riservati.<br/>
                 <button onClick={handleClickPrivacy} className="footer-link"> Privacy Policy </button>|

@@ -1,5 +1,11 @@
 {
     "/js/app.js": "/js/app.js",
+    "/css/email-verify-notice.css": "/css/email-verify-notice.css",
+    "/css/registration.css": "/css/registration.css",
+    "/css/login.css": "/css/login.css",
     "/css/home.css": "/css/home.css",
-    "/css/main.css": "/css/main.css"
+    "/css/main.css": "/css/main.css",
+    "/css/page2fa.css": "/css/page2fa.css",
+    "/css/profile.css": "/css/profile.css",
+    "/css/notfound.css": "/css/notfound.css"
 }

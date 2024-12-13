@@ -5,15 +5,18 @@ import ReactDOM from 'react-dom/client';
 import Main from './Main';
 import { AxiosInterceptor } from './components/axios/AxiosInterceptor';
 import { AuthProvider } from './contexts/AuthContext';
+import { TwoFactorAuthProvider } from './contexts/TwoFactorAuthContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <BrowserRouter>
             <AuthProvider>
-                <AxiosInterceptor>
-                    <Main />
-                </AxiosInterceptor>
+                <TwoFactorAuthProvider>
+                    <AxiosInterceptor>
+                        <Main />
+                    </AxiosInterceptor>
+                </TwoFactorAuthProvider>
             </AuthProvider>
         </BrowserRouter>
     </React.StrictMode>

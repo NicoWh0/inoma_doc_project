@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, redirect, useNavigate } from 'react-router-dom';
-import '../../../css/registration.css';
 import {instance as axios} from '../../components/axios/AxiosInterceptor';
 
 export default function Registration() {

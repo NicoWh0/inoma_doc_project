@@ -1,5 +1,4 @@
 import React, {useState, useContext } from "react";
-import "../../../css/login.css";
 import { Link } from "react-router-dom";
 import { instance as axios } from "../../components/axios/AxiosInterceptor";
 import { AuthContext } from "../../contexts/AuthContext";
@@ -19,12 +18,14 @@ export default function Login() {
         console.log(formData);
         axios.post('/login', formData)
             .then(response => {
-                console.log(response);
-                setUser(response.data.user);
+                console.log("Login Page: login successful");
+                if(!response.data.require2fa) {
+                    setUser(response.data.user);
+                }
             })
             .catch(error => {
                 console.error(error);
-                console.log("login failed");
+                console.log("Login Page: login failed");
             });
     }
 
@@ -40,7 +41,7 @@ export default function Login() {
             <h1 className="login-title"><span className="color-red">Accedi</span> alla piattaforma</h1>
             <form onSubmit={handleSubmit} className="login-form">
                 <div className="form-group">
-                    <label htmlFor="username">Username o Email</label>
+                    <label htmlFor="identifier">Username o Email</label>
                     <input
                         onInvalid={(e) => e.target.setCustomValidity('Inserire username o email.')}
                         onInput={(e) => e.target.setCustomValidity('')}

@@ -5,8 +5,9 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const isAuthenticated = user !== null;
     const [done, setDone] = useState(false);
+
+    const isAuthenticated = user !== null;
 
     useEffect(() => {
         axios.get('/user/me')

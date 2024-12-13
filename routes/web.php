@@ -34,9 +34,19 @@ Route::get('/email/verify', function () {
 
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 
-Route::post('/enable-2fa', [LoginController::class, 'enable2FA'])->name('enable2fa');
+Route::post('/login/2fa', [LoginController::class,'login2fa'])->name('login.2fa');
 
-Route::post('/disable-2fa', [LoginController::class, 'disable2FA'])->name('disable2fa');
+Route::post('/user/me/enable-2fa/request',
+    [LoginController::class, 'enable2FARequest']
+)->middleware('auth:sanctum')->name('enable2fa.request');
+
+Route::post('/user/me/enable-2fa/verify',
+[LoginController::class, 'enable2FAVerify']
+)->middleware('auth:sanctum')->name('enable2fa.verify');
+
+Route::post('/user/me/disable-2fa',
+[LoginController::class, 'disable2FA']
+)->middleware('auth:sanctum')->name('disable2fa');
 
 //Route::post('/verify-2fa', [LoginController::class, 'verify2FA'])->name('verify-2fa');
 
@@ -51,7 +61,7 @@ Route::get('/test-protected-route', function () {
 })->middleware('auth:sanctum');
 
 Route::get('/user/me', function (Request $request) {
-    return $request->user()->only('type', 'username', 'email');
+    return $request->user()->only('type', 'username', 'email', 'google2fa_enabled');
 })->middleware('auth:sanctum');
 
 Route::get('js/react-slideshow-image.esm.js.map', function (Request $request) {
