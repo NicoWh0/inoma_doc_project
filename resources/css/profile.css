@@ -1,0 +1,330 @@
+.profile-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    background-color: #f1f1f1;
+    box-shadow: 0 0 5px 5px #0000001a;
+}
+
+.profile-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 1em;
+    padding: 0 1em;
+    width: 75%;
+    border-bottom: 1px solid #bebebe;
+}
+
+.profile-intro h1 {
+    margin: 0;
+}
+
+.profile-intro h2 {
+    font-size: 1.2em;
+    margin-top: 0.5rem;
+}
+
+.profile-intro p {
+    font-size: 0.95em;
+    margin-top: 0.2rem;
+}
+
+.profile-info-container, .profile-auth-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1em;
+    padding: 0 1em;
+    width: 75%;
+    border-bottom: 1px solid #bebebe;
+}
+
+.profile-info-container .profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1em;
+    width: 95%;
+    text-align: center;
+    border-bottom: 0.5px solid #cccccc;
+
+}
+
+.profile-info.no-border {
+    border-bottom: none;
+}
+
+.profile-username-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.profile-info .profile-info-value {
+    font-size: 1.1em;
+    margin: 0;
+}
+
+.profile-info .profile-info-text {
+    font-size: 0.9em;
+    margin-top: 0.2rem;
+    color: #383838;
+}
+
+.profile-username-button {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-family);
+    border: 1px solid #797979;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    background-color : #ffffff;
+    color: #000000;
+    margin-top: 0.2rem;
+    margin-left: 0.5rem;
+    height: min-content;
+    font-style: italic;
+    padding: 0.2rem 0.65rem 0.2rem 0.5rem;
+    transition: all 0.5s linear, color 0.5s linear;
+    overflow: hidden;
+    box-shadow: 1px 1px 0.5px 0.8px #0000001a;
+}
+
+.profile-username-button span {
+    position: relative;
+    z-index: 5;
+}
+
+.profile-username-button::before, .profile-username-button::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -100%;
+    left: 0;
+    background-color: #ee393950;
+    transition: all 250ms ease-in;
+}
+
+.profile-username-button::after {
+    background-color: #ff5858;
+    transition-delay: 260ms;
+}
+
+.profile-username-button:hover::after {
+    transition-delay: 0;
+}
+
+.profile-username-button:hover {
+    color: #ffffff;
+}
+
+.profile-username-button:active {
+    box-shadow: 1px 1px 0.5px 0.8px #0000001a inset;
+}
+
+.profile-username-button:hover::before, .profile-username-button:hover::after {
+    top: 0;
+}
+
+.profile-username-form-container {
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.profile-username-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: -100%;
+    transition: all 1s;
+    padding: 0 1em;
+    width: 90%;
+}
+
+.profile-username-form.expanded {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.username-form-input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.username-form-input input {
+    width: 65%;
+    border-radius: 5px;
+    border: 1px solid #797979;
+}
+
+.username-form-input input:focus {
+    outline: none;
+    box-shadow: 0 0 2px 2px #aaaaaa ;
+}
+
+.username-form-input label {
+    width: 35%;
+    margin-right: 0.4rem;
+}
+
+.username-form-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.username-form-footer small {
+    font-size: 0.8em;
+    color: #797979;
+}
+
+.username-form-button {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-family);
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 500;
+    background-color : inherit;
+    color:#105713;
+    margin-top: 0.5rem;
+    margin-left: 0.5rem;
+    height: min-content;
+    padding: 0.2rem 0.65rem 0.2rem 0.5rem;
+    transition: all 0.2s linear, color 0.2s linear;
+}
+
+.username-form-button span {
+    z-index: 5;
+}
+
+
+.username-form-button::before {
+    content: "";
+    display: block;
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    border-top: 2px solid #0ec517;
+    border-bottom: 2px solid #0ec517;
+    transition: all 0.5s ease;
+    background-color: white;
+}
+
+.username-form-button::after {
+    content: "";
+    display: block;
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    border-left: 2px solid #0ec517;
+    border-right: 2px solid #0ec517;
+    transition: all 0.5s ease;
+    box-shadow: 0 0 0.5px 0.5px #136817;
+}
+
+.username-form-button:hover {
+    color:#0ec517;
+    transform: scale(1.1);
+}
+
+.username-form-button:hover::before {
+    border-radius: 0;
+    transform: scale(1.1);
+}
+
+.username-form-button:hover::after {
+    transform: scale(0);
+}
+
+.profile-username-success {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1em;
+    padding: 0;
+    border-bottom: 1px solid #bebebe;
+    background: linear-gradient(-45deg, #52ee81, #3ce761, #23d5a0, #23d5ab);
+    box-shadow: 0 0 3px 3px #0000003b;
+    border-radius: 10px;
+    color: #ffffff;
+    font-weight: 600;
+    width: 40%;
+    margin-bottom: 1rem;
+    user-select: none;
+}
+
+.profile-username-success p {
+    font-size: 0.9em;
+    margin: 0;
+    padding-bottom: 0.8rem;
+}
+
+.profile-username-success-button-container {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+    height: min-content;
+    padding: 0;
+    margin: 0;
+}
+
+.profile-username-success button {
+    font-family: var(--font-family);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0.1rem;
+    border: none;
+    background-color: inherit;
+    color: #ffffff;
+    cursor: pointer;
+    transition: color 0.3s linear;
+}
+
+.profile-username-success button:hover {
+    color: #000000;
+}
+
+.profile-username-success.visible {
+    display: flex;
+}
+
+

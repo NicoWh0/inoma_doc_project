@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, Link, Navigate, useLocation } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Header from './components/general/Header';
+import Footer from './components/general/Footer';
 import {
     NotFound,
     Home,
@@ -16,6 +16,7 @@ import {
 } from './pages';
 import ScrollToTop from "./components/utils/ScrollToTop";
 import ProtectedRoute from "./components/navigation/ProtectedRoute";
+import Documentation from "./pages/protected/Documentation";
 
 
 export default function Main() {
@@ -37,11 +38,12 @@ export default function Main() {
                     <Route path="/" element={<Navigate to="/home" />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Registration />} />
-                    <Route path="/email/verify/notice" element={<EmailVerificationNotification />} />
-                    <Route path="/email/verify/:id/:hash" element={<EmailVerification />} />
-                    <Route path="/email/verify/success" element={<EmailVerified />} />
+                    <Route path="/email/verify/notice" element={<ProtectedRoute><EmailVerificationNotification /></ProtectedRoute>} />
+                    <Route path="/email/verify/:id/:hash" element={<ProtectedRoute><EmailVerification /></ProtectedRoute>} />
+                    <Route path="/email/verify/success" element={<ProtectedRoute><EmailVerified /></ProtectedRoute>} />
                     <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-                    <Route path="/enable-2fa" element={<Enable2FA />} />
+                    <Route path="/enable-2fa" element={<ProtectedRoute><Enable2FA /></ProtectedRoute>} />
+                    <Route path="/documentation" element={<ProtectedRoute><Documentation/></ProtectedRoute>} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>

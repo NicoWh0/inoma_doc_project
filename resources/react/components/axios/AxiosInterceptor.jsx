@@ -45,7 +45,7 @@ const AxiosInterceptor = ({ children }) => {
                         break;
                     case response.config.url === '/login' && response.status === 200:
                         console.log('Axios: Login successful');
-                        navigate('/home');
+                        navigate('/profile');
                         break;
                     case response.config.url === '/logout' && response.status === 200:
                         console.log('Axios: Logout successful');

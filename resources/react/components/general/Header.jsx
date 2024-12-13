@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { Link } from 'react-router-dom';
-import { instance as axios } from '../components/axios/AxiosInterceptor';
-import { AuthContext } from '../contexts/AuthContext';
+import { instance as axios } from '../axios/AxiosInterceptor';
+import { AuthContext } from '../../contexts/AuthContext';
 import Cookies from 'js-cookie';
 import clsx from "clsx";
 

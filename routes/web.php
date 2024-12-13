@@ -2,14 +2,13 @@
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Mail\TestMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
-
-
 
 
 Route::get('/send-test-mail', function () {
@@ -35,9 +34,15 @@ Route::get('/email/verify', function () {
 
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 
-Route::post('/enable-2fa', [LoginController::class, 'enable2FA'])->name('enable-2fa');
+Route::post('/enable-2fa', [LoginController::class, 'enable2FA'])->name('enable2fa');
 
-Route::post('/disable-2fa', [LoginController::class, 'disable2FA'])->name('disable-2fa');
+Route::post('/disable-2fa', [LoginController::class, 'disable2FA'])->name('disable2fa');
+
+//Route::post('/verify-2fa', [LoginController::class, 'verify2FA'])->name('verify-2fa');
+
+Route::put('/user/me/change-username',
+[UserController::class, 'changeUsername']
+)->middleware('auth:sanctum')->name('changeUsername');
 
 Route::delete('/logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -48,6 +53,10 @@ Route::get('/test-protected-route', function () {
 Route::get('/user/me', function (Request $request) {
     return $request->user()->only('type', 'username', 'email');
 })->middleware('auth:sanctum');
+
+Route::get('js/react-slideshow-image.esm.js.map', function (Request $request) {
+    return response()->file(public_path('js/react-slideshow-image.esm.js.map'));
+});
 
 //Per il client-side routing
 Route::get('/{any}', function () {
