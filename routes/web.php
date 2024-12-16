@@ -63,8 +63,11 @@ Route::put('/user/me/change-username',
 Route::delete('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/user/me', function (Request $request) {
-    return $request->user()->only('type', 'username', 'email', 'google2fa_enabled');
+    return $request->user()->only('type', 'username', 'email', 'email_verified', 'google2fa_enabled');
 })->middleware('auth:sanctum');
+
+//Documentation sharing routes
+//Route::post('/documentation', )
 
 //Per il client-side routing
 Route::get('/{any}', function () {

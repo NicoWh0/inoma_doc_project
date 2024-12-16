@@ -21,7 +21,7 @@ function UsernameSuccess({setUsernameSuccess, visible}) {
 }
 
 export default function Profile() {
-    const { user, setUser } = useContext(AuthContext);
+    const { user, setUser, isEmailVerified } = useContext(AuthContext);
     const [isUsernameFormOpen, setIsUsernameFormOpen] = useState(false);
     const [usernameForm, setUsernameForm] = useState('');
     const [usernameSuccess, setUsernameSuccess] = useState(false);
@@ -92,7 +92,14 @@ export default function Profile() {
                     <div className="profile-info-container">
                         <h2>Informazioni <span className="color-red">utente</span></h2>
                         <div className="profile-info">
-                            <p className="profile-info-value"><span className="color-red bold">Email:</span> {user.email}</p>
+                            <div className="profile-email-box">
+                                <p className="profile-info-value"><span className="color-red bold">Email:</span> {user.email}</p>
+                                {isEmailVerified ?
+                                    <img src="/images/checkmark.png" alt="Email verificata" className="profile-email-verified-icon" title="Email verificata"/>
+                                :
+                                    <img src="/images/warning.png" alt="Email non verificata" className="profile-email-verified-icon" title="Email non verificata"/>
+                                }
+                            </div>
                             <p className="profile-info-text">L'email non è modificabile!</p>
                         </div>
                         <div className="profile-info">

@@ -42,7 +42,7 @@ class LoginController extends Controller
             'user_status'=> 1, //User is active
         ];
 
-        if(Hash::check($password, $user->password) && $user->google2fa_enabled) {
+        if(Hash::check($password, $user->password) && $user->google2fa_enabled && $user->user_status === 1) {
             $request->session()->put('2fa:user:id', $user->id);
             return response()->json([
                 'message'=> 'Success, but 2FA required',
@@ -56,7 +56,7 @@ class LoginController extends Controller
                 [
                     'message' => 'Login successful',
                     'require2fa' => false,
-                    'user' => $user->only('type', 'username', 'email', 'google2fa_enabled'),
+                    'user' => $user->only('type', 'username', 'email', 'google2fa_enabled', 'email_verified'),
                 ],
                 200
             );
@@ -74,7 +74,7 @@ class LoginController extends Controller
             return response()->json(['message' => '2FA setup not initiated'], 401);
         }
 
-        $user = User::where('id', $userId)->first();
+        $user = User::where('id', $userId)->where('user_status', 1)->first();
         if (!$user) {
             return response()->json(['message' => 'Invalid User'], 401);
         }
@@ -94,7 +94,7 @@ class LoginController extends Controller
             return response()->json(
                 [
                     'message' => 'Login successful',
-                    'user' => $user->only('type', 'username', 'email', 'google2fa_enabled'),
+                    'user' => $user->only('type', 'username', 'email', 'google2fa_enabled', 'email_verified'),
                 ],
                 200
             );

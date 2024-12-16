@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { instance as axios } from "../../components/axios/AxiosInterceptor";
 import { AuthContext } from "../../contexts/AuthContext";
-import { useSearchParams, useNavigate, Navigate } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import Loader from "../../components/general/Loader";
 import Form2FA from "../../components/general/Form2FA";
 import PopupFailure from "../../components/general/PopupFailure";
@@ -28,10 +28,12 @@ export default function Page2FA() {
         e.preventDefault();
         console.log('2FA code submitted:', code);
         if(code.length < 6) return;
+        const codeToSend = code;
+        setCode('');
         switch(searchParams.get('context')) {
             case 'login':
                 console.log('2FA Page: Login request');
-                axios.post('/login/2fa', {code: code}).then(response => {
+                axios.post('/login/2fa', {code: codeToSend}).then(response => {
                     console.log('2FA Login response:', response.data);
                     setUser(response.data.user);
                 }).catch(error => {
@@ -75,12 +77,10 @@ export default function Page2FA() {
                 <PopupFailure open={error} onClose={() => {
                     setError(false);
                     setMessage('');
-                    setCode('');
                 }} message={message} />
                 <PopupSuccess open={success} onClose={() => {
                     setSuccess(false);
                     setMessage('');
-                    setCode('');
                     navigate('/profile');
                 }} message={message} />
                 <div className="form-2fa-container">

@@ -22,7 +22,10 @@ export default function Enable2FA() {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        axios.post('/user/me/enable-2fa/verify', {code: totpCode})
+        if(totpCode.length < 6) return;
+        const codeToSend = totpCode;
+        setTotpCode('');
+        axios.post('/user/me/enable-2fa/verify', {code: codeToSend})
             .then(response => {
                 setSuccess(true);
                 setUser(user => ({...user, google2fa_enabled: true}));
@@ -57,7 +60,6 @@ export default function Enable2FA() {
             <PopupFailure open={error} onClose={() => {
                 setError(false);
                 setErrMessage('');
-                setTotpCode('');
             }} message={errMessage} />
             <div className="enable-2fa-page-header">
                 <h1 className="enable-2fa-page-title">Abilitazione <span className="color-red">Autenticazione a due fattori</span></h1>

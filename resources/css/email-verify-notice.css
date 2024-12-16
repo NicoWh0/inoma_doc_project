@@ -16,26 +16,32 @@
     padding: 0 1rem;
 }
 
+.email-verification-link {
+    text-align: center;
+}
+
 .resend-mail-token-btn {
     font-family: var(--font-family);
     font-size: 1.1em;
     font-weight: 500;
-    background-color: #cecece;
+    background-color: #ff4343;
+    color: #ffffff;
     border-radius: 3.5px;
     padding: 0.1rem 0.5rem;
     border: 0.1px solid #6b6b6b;
     cursor: pointer;
     transition: background-color 0.2s;
-    box-shadow: 0.25px 0.25px 0.25px #4b4b4b;
+    box-shadow: 0.25px 0.25px 0.25px #353535;
 }
 
 .resend-mail-token-btn:hover {
-    background-color: #bfbfbf;
+    background-color: #ff5d5d;
 }
 
 .resend-mail-token-btn:active {
     transition: none;
-    background-color: #a8a8a8;
+    background-color: #990b0b;
+    color: #d3d3d3;
     box-shadow: 0.25px 0.25px 0.25px #4b4b4b inset;
 }
 

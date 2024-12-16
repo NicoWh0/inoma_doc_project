@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import { Link, redirect, useNavigate } from 'react-router-dom';
+import React, { useState, useContext } from "react";
+import { Link } from 'react-router-dom';
 import {instance as axios} from '../../components/axios/AxiosInterceptor';
+import { AuthContext } from "../../contexts/AuthContext";
 
 export default function Registration() {
+    const { setUser } = useContext(AuthContext);
 
     const [formData, setFormData] = useState({
         email: '',
@@ -63,17 +65,17 @@ export default function Registration() {
         }
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         //submit to api
         console.log(formData);
 
-        try {
-            const response = await axios.post('/register', formData);
+        axios.post('/register', formData).then(response => {
             console.log("Registration successful: ", response);
-        } catch (error) {
+            setUser(response.data.user);
+        }).catch(error => {
             console.error("Error: ", error);
-        }
+        });
     }
 
     const handlePolicyClick = () => {

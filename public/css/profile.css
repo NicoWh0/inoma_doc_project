@@ -74,6 +74,20 @@
     margin-bottom: 1rem;
 }
 
+.profile-email-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.profile-email-verified-icon {
+    margin-left: 0.5rem;
+    width: 20px;
+    height: auto;
+}
+
 .profile-info .profile-info-value {
     font-size: 1.1em;
     margin: 0;

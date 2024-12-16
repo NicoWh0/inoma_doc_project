@@ -19,6 +19,7 @@ import {
 } from './pages';
 import ScrollToTop from "./components/utils/ScrollToTop";
 import ProtectedRoute from "./components/navigation/ProtectedRoute";
+import EmailVerifiedRoute from "./components/navigation/EmailVerifiedRoute";
 
 
 
@@ -49,7 +50,7 @@ export default function Main() {
                     <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
                     <Route path="/enable-2fa" element={<ProtectedRoute><Enable2FA /></ProtectedRoute>} />
                     <Route path="/disable-2fa" element={<ProtectedRoute><Disable2FA/></ProtectedRoute>} />
-                    <Route path="/documentation" element={<ProtectedRoute><Documentation/></ProtectedRoute>} />
+                    <Route path="/documentation" element={<ProtectedRoute><EmailVerifiedRoute><Documentation/></EmailVerifiedRoute></ProtectedRoute>} />
                     <Route path="/page-2fa" element={<Page2FA />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>

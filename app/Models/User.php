@@ -46,4 +46,23 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get the email_verified attribute.
+     *
+     * @return bool
+     */
+    public function getEmailVerifiedAttribute(): bool
+    {
+        return !is_null($this->email_verified_at);
+    }
+
+    /**
+     * The attributes that should be appended to the model's array form.
+     *
+     * @var array<int, string>
+     */
+    protected $appends = [
+        'email_verified',
+    ];
 }

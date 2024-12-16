@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
     const [done, setDone] = useState(false);
 
     const isAuthenticated = user !== null;
+    const isEmailVerified = user?.email_verified === true;
 
     useEffect(() => {
         axios.get('/user/me')
@@ -26,7 +27,7 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user, setUser, isAuthenticated, done }}>
+        <AuthContext.Provider value={{ user, setUser, isAuthenticated, isEmailVerified, done }}>
             {children}
         </AuthContext.Provider>
     );

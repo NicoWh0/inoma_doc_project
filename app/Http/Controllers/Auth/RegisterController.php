@@ -33,6 +33,9 @@ class RegisterController extends Controller
         Auth::login($user);
         $user->sendEmailVerificationNotification();
 
-        return response()->json(['message'=> 'User registered successfully. Please check your email to verify your account.'], 201);
+        return response()->json([
+            'message'=> 'User registered successfully. Please check your email to verify your account.',
+            'user'=> $user->only('username', 'type', 'email', 'email_verified'),
+        ], 201);
     }
 }
