@@ -1,19 +1,27 @@
 <?php
 
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Mail\TestMail;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\UserController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
 Route::get('/send-test-mail', function () {
     Mail::to('nico.bianchetto@gmail.com')->send(new TestMail());
     return 'Test Email sent';
+});
+
+Route::get('/test-protected-route', function () {
+    return 'You are authorized to view this page';
+})->middleware('auth:sanctum');
+
+Route::get('js/react-slideshow-image.esm.js.map', function (Request $request) {
+    return response()->file(public_path('js/react-slideshow-image.esm.js.map'));
 });
 
 Route::post('/register', [RegisterController::class, 'register'])->name('register');
@@ -48,25 +56,15 @@ Route::post('/user/me/disable-2fa',
 [LoginController::class, 'disable2FA']
 )->middleware('auth:sanctum')->name('disable2fa');
 
-//Route::post('/verify-2fa', [LoginController::class, 'verify2FA'])->name('verify-2fa');
-
 Route::put('/user/me/change-username',
 [UserController::class, 'changeUsername']
 )->middleware('auth:sanctum')->name('changeUsername');
 
 Route::delete('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('/test-protected-route', function () {
-    return 'You are authorized to view this page';
-})->middleware('auth:sanctum');
-
 Route::get('/user/me', function (Request $request) {
     return $request->user()->only('type', 'username', 'email', 'google2fa_enabled');
 })->middleware('auth:sanctum');
-
-Route::get('js/react-slideshow-image.esm.js.map', function (Request $request) {
-    return response()->file(public_path('js/react-slideshow-image.esm.js.map'));
-});
 
 //Per il client-side routing
 Route::get('/{any}', function () {

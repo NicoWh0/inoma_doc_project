@@ -45,6 +45,10 @@
     box-shadow: 0 0 1.2px 1.5px #fc4848;
 }
 
+.login-form .form-group input::-moz-placeholder {
+    font-family: var(--font-family);
+}
+
 .login-form .form-group input::placeholder {
     font-family: var(--font-family);
 }
@@ -124,6 +128,10 @@
         font-size: 0.9em;
     }
 
+    .login-form .form-group input::-moz-placeholder {
+        font-size: 0.9em;
+    }
+
     .login-form .form-group input::placeholder {
         font-size: 0.9em;
     }
@@ -133,6 +141,7 @@
         font-size: 0.9em;
     }
 }
+
 
 
 

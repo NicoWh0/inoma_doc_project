@@ -53,6 +53,11 @@
     padding-left: 0.4rem;
 }
 
+.registration-form .form-group-input-box input::-moz-placeholder {
+    color: #6c757d;
+    text-align: start;
+}
+
 .registration-form .form-group-input-box input::placeholder {
     color: #6c757d;
     text-align: start;
@@ -64,7 +69,9 @@
 }
 
 .registration-form .form-group label {
-    user-select: none;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+            user-select: none;
     padding-right: 1.2rem;
     font-size: 1.1em;
 }
@@ -159,8 +166,13 @@
         height: 1.3rem;
     }
 
+    .registration-form .form-group-input-box input::-moz-placeholder {
+        font-size: 0.9em;
+    }
+
     .registration-form .form-group-input-box input::placeholder {
         font-size: 0.9em;
     }
 
 }
+

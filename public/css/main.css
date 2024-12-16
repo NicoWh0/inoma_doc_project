@@ -306,6 +306,82 @@ footer p {
     transition: color 0.25s ease-in-out, text-shadow 0.25s ease-in-out;
 }
 
+/* Pop-up success/failure */
+
+.popup-content {
+    padding: 0 !important;
+    background: none !important;
+    border: none !important;
+}
+
+.popup-window {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 #000000a6;
+}
+
+.popup-success {
+    background-color: #4caf50;
+    color: white;
+    border: 1px solid #79d37c;
+}
+
+.popup-failure {
+    background-color: #f44336;
+    color: white;
+    border: 1px solid #f44336;
+}
+
+.popup-window .close-btn-row {
+    width: 100%;
+    height: -moz-min-content;
+    height: min-content;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.popup-window .header {
+    font-size: 1.5em;
+    font-weight: 600;
+    margin: 0;
+}
+
+.popup-window .header h4 {
+    margin: 0;
+    margin-bottom: 0.8rem;
+    text-align: center;
+}
+
+.popup-window .content {
+    font-size: 1.1em;
+    font-weight: 500;
+    margin: 0;
+    text-align: center;
+}
+
+.close-btn-row .close {
+    font-size: 0.95em;
+    cursor: pointer;
+    color: white;
+    background-color: inherit;
+    border: none;
+    transition: color 0.25s ease;
+    padding: 0;
+    margin: 0;
+}
+
+.popup-success .close-btn-row .close:hover {
+    color: #ec0b0b;
+}
+
+.popup-failure .close-btn-row .close:hover {
+    color: #000000;
+}
+
 
 
 /* Animation */
@@ -385,4 +461,5 @@ footer p {
         height: 3.5rem;
     }
 }
+
 

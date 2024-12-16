@@ -17,15 +17,17 @@ export default function Disable2FA() {
 
     return (
         <div className="disable-2fa-page">
-            <h1>Disattivazione Autenticazione a doppio fattore</h1>
-            <div>
-                <p>Sei veramente sicuro di disattivare l'autenticazione a doppio fattore?</p>
-                <p>
-                    L'autenticazione a doppio fattore ti aiuta a proteggere il tuo account aggiungendo un ulteriore livello di sicurezza.
-                </p>
+            <h1 className="disable-2fa-title">Disattivazione <span className="color-red">Autenticazione a due fattori</span></h1>
+            <div className="disable-2fa-content">
+                <div className="disable-2fa-text">
+                    <p>Sei veramente sicuro di disattivare l'autenticazione a doppio fattore?</p>
+                    <p>
+                        L'autenticazione a doppio fattore ti aiuta a proteggere il tuo account aggiungendo un ulteriore livello di sicurezza.
+                    </p>
+                </div>
                 <div className="btn-group">
-                    <button onClick={handleDisable}>Disattiva</button>
-                    <button onClick={handleCancel}>Annulla</button>
+                    <button className="disable-button" onClick={handleDisable}>Disattiva</button>
+                    <button className="cancel-button" onClick={handleCancel}>Annulla</button>
                 </div>
             </div>
         </div>

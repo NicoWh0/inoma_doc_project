@@ -126,7 +126,7 @@ export default function Profile() {
                                 <button className="profile-button"><span>Modifica</span></button>
                             </div>
                         </div>
-                        <div className="profile-2fa">
+                        <div className="profile-2fa" id="profile-2fa">
                             <h4>Autenticazione a <span className="color-red">due fattori</span></h4>
                             <div className="profile-2fa-info">
                                 <p><span className="color-red bold">Stato: </span> {user.google2fa_enabled ? "Abilitata" : "Disabilitata"}</p>

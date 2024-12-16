@@ -4,7 +4,7 @@ import { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const instance = axios.create({
-    baseURL: 'http://localhost:8000/',
+    baseURL: 'http://localhost:8000',
     timeout: 10000,
     headers: {
         //'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
@@ -56,10 +56,6 @@ const AxiosInterceptor = ({ children }) => {
                         console.log('Axios: Logout successful');
                         navigate('/login');
                         break;
-                    case response.config.url === '/user/me/disable-2fa' && response.status === 200:
-                        console.log('Axios: 2FA disabled');
-                        navigate('/profile');
-                        break;
                     case /\/email\/verify\/[0-9]+\/[^\/]+/.test(response.config.url) && response.status === 200:
                         console.log('Axios: Email verification');
                         break;
@@ -75,8 +71,11 @@ const AxiosInterceptor = ({ children }) => {
                         console.error("Error: Request timeout");
                         console.error(error);
                         break;
-                    case error.config.url === '/user/me' && error.response.status === 401:
-                        console.log('User not authenticated');
+                    case error.config.url === '/user/me' && error.response.status === 401: //To avoid navigate to login page
+                        break;
+                    case error.config.url === '/user/me/disable-2fa' && error.response.status === 401: //To avoid navigate to login page
+                        break;
+                    case error.config.url === '/login/2fa' && error.response.status === 401: //To avoid navigate to login page
                         break;
                     case error.response?.status === 401:
                         navigate('/login');

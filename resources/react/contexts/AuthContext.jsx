@@ -4,6 +4,9 @@ import { instance as axios } from "../components/axios/AxiosInterceptor";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+    /*
+        user: { type, username, email, google2fa_enabled }
+    */
     const [user, setUser] = useState(null);
     const [done, setDone] = useState(false);
 

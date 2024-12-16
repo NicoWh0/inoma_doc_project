@@ -1027,7 +1027,7 @@ function _asyncToGenerator(n) { return function () { var t = this, e = arguments
 
 
 var instance = axios__WEBPACK_IMPORTED_MODULE_2__["default"].create({
-  baseURL: 'http://localhost:8000/',
+  baseURL: 'http://localhost:8000',
   timeout: 10000,
   headers: {
     //'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
@@ -1090,10 +1090,6 @@ var AxiosInterceptor = function AxiosInterceptor(_ref2) {
           console.log('Axios: Logout successful');
           navigate('/login');
           break;
-        case response.config.url === '/user/me/disable-2fa' && response.status === 200:
-          console.log('Axios: 2FA disabled');
-          navigate('/profile');
-          break;
         case /\/email\/verify\/[0-9]+\/[^\/]+/.test(response.config.url) && response.status === 200:
           console.log('Axios: Email verification');
           break;
@@ -1110,7 +1106,13 @@ var AxiosInterceptor = function AxiosInterceptor(_ref2) {
           console.error(error);
           break;
         case error.config.url === '/user/me' && error.response.status === 401:
-          console.log('User not authenticated');
+          //To avoid navigate to login page
+          break;
+        case error.config.url === '/user/me/disable-2fa' && error.response.status === 401:
+          //To avoid navigate to login page
+          break;
+        case error.config.url === '/login/2fa' && error.response.status === 401:
+          //To avoid navigate to login page
           break;
         case ((_error$response = error.response) === null || _error$response === void 0 ? void 0 : _error$response.status) === 401:
           navigate('/login');
@@ -1172,6 +1174,53 @@ function Footer(_ref) {
         children: " Politica Aziendale "
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), "P.IVA 02507000020 - R.E.A. BI 192615"]
     })
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/react/components/general/Form2FA.jsx":
+/*!********************************************************!*\
+  !*** ./resources/react/components/general/Form2FA.jsx ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Form2FA)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+function Form2FA(_ref) {
+  var handleOnSubmit = _ref.handleOnSubmit,
+    handleOnChange = _ref.handleOnChange,
+    code = _ref.code;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
+    className: "form-2fa",
+    onSubmit: handleOnSubmit,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+      htmlFor: "code",
+      children: "Codice:"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+      id: "code",
+      inputMode: "numeric",
+      onChange: handleOnChange,
+      type: "text",
+      value: code,
+      placeholder: "XXX-XXX",
+      onKeyUp: function onKeyUp(e) {
+        if (e.key === 'Enter') handleOnSubmit(e);
+      }
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+      disabled: code.length < 6,
+      className: "totp-submit-button",
+      type: "submit",
+      children: "Invia codice"
+    })]
   });
 }
 
@@ -1443,6 +1492,118 @@ function Loader() {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
       children: "Caricamento ..."
     })]
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/react/components/general/PopupFailure.jsx":
+/*!*************************************************************!*\
+  !*** ./resources/react/components/general/PopupFailure.jsx ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ PopupFailure)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var reactjs_popup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! reactjs-popup */ "./node_modules/reactjs-popup/dist/reactjs-popup.esm.js");
+/* harmony import */ var reactjs_popup_dist_index_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! reactjs-popup/dist/index.css */ "./node_modules/reactjs-popup/dist/index.css");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+function PopupFailure(_ref) {
+  var open = _ref.open,
+    onClose = _ref.onClose,
+    message = _ref.message;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(reactjs_popup__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    open: open,
+    onClose: onClose,
+    modal: true,
+    nested: true,
+    position: ['center', 'center'],
+    children: function children(close) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "modal popup-window popup-failure",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "close-btn-row",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+            className: "close",
+            onClick: close,
+            children: "\xD7"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "header",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+            children: "Errore"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "content",
+          children: message
+        })]
+      });
+    }
+  });
+}
+
+/***/ }),
+
+/***/ "./resources/react/components/general/PopupSuccess.jsx":
+/*!*************************************************************!*\
+  !*** ./resources/react/components/general/PopupSuccess.jsx ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ PopupSuccess)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var reactjs_popup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! reactjs-popup */ "./node_modules/reactjs-popup/dist/reactjs-popup.esm.js");
+/* harmony import */ var reactjs_popup_dist_index_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! reactjs-popup/dist/index.css */ "./node_modules/reactjs-popup/dist/index.css");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+function PopupSuccess(_ref) {
+  var open = _ref.open,
+    onClose = _ref.onClose,
+    message = _ref.message;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(reactjs_popup__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    open: open,
+    onClose: onClose,
+    modal: true,
+    nested: true,
+    position: ['center', 'center'],
+    children: function children(close) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "modal popup-window popup-success",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "close-btn-row",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+            className: "close",
+            onClick: close,
+            children: "\xD7"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "header",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
+            children: "Successo"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "content",
+          children: message
+        })]
+      });
+    }
   });
 }
 
@@ -1999,6 +2160,9 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 var AuthContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)();
 var AuthProvider = function AuthProvider(_ref) {
   var children = _ref.children;
+  /*
+      user: { type, username, email, google2fa_enabled }
+  */
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState2 = _slicedToArray(_useState, 2),
     user = _useState2[0],
@@ -2104,19 +2268,29 @@ function Disable2FA() {
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     className: "disable-2fa-page",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
-      children: "Disattivazione Autenticazione a doppio fattore"
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("h1", {
+      className: "disable-2fa-title",
+      children: ["Disattivazione ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+        className: "color-red",
+        children: "Autenticazione a due fattori"
+      })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-        children: "Sei veramente sicuro di disattivare l'autenticazione a doppio fattore?"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-        children: "L'autenticazione a doppio fattore ti aiuta a proteggere il tuo account aggiungendo un ulteriore livello di sicurezza."
+      className: "disable-2fa-content",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "disable-2fa-text",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          children: "Sei veramente sicuro di disattivare l'autenticazione a doppio fattore?"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          children: "L'autenticazione a doppio fattore ti aiuta a proteggere il tuo account aggiungendo un ulteriore livello di sicurezza."
+        })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
         className: "btn-group",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+          className: "disable-button",
           onClick: handleDisable,
           children: "Disattiva"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+          className: "cancel-button",
           onClick: handleCancel,
           children: "Annulla"
         })]
@@ -2267,10 +2441,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-D52XG6IA.mjs");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-D52XG6IA.mjs");
 /* harmony import */ var _components_axios_AxiosInterceptor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/axios/AxiosInterceptor */ "./resources/react/components/axios/AxiosInterceptor.jsx");
-/* harmony import */ var _components_general_Loader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/general/Loader */ "./resources/react/components/general/Loader.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _contexts_AuthContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../contexts/AuthContext */ "./resources/react/contexts/AuthContext.jsx");
+/* harmony import */ var _components_general_Loader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/general/Loader */ "./resources/react/components/general/Loader.jsx");
+/* harmony import */ var _components_general_Form2FA__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/general/Form2FA */ "./resources/react/components/general/Form2FA.jsx");
+/* harmony import */ var _components_general_PopupSuccess__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/general/PopupSuccess */ "./resources/react/components/general/PopupSuccess.jsx");
+/* harmony import */ var _components_general_PopupFailure__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components/general/PopupFailure */ "./resources/react/components/general/PopupFailure.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -2282,7 +2466,14 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
+
+
+
+
 function Enable2FA() {
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_contexts_AuthContext__WEBPACK_IMPORTED_MODULE_2__.AuthContext),
+    setUser = _useContext.setUser;
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_8__.useNavigate)();
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState2 = _slicedToArray(_useState, 2),
     qrCodeUrl = _useState2[0],
@@ -2291,6 +2482,18 @@ function Enable2FA() {
     _useState4 = _slicedToArray(_useState3, 2),
     totpCode = _useState4[0],
     setTotpCode = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState6 = _slicedToArray(_useState5, 2),
+    success = _useState6[0],
+    setSuccess = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState8 = _slicedToArray(_useState7, 2),
+    error = _useState8[0],
+    setError = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState10 = _slicedToArray(_useState9, 2),
+    errMessage = _useState10[0],
+    setErrMessage = _useState10[1];
   var handleOnChange = function handleOnChange(e) {
     setTotpCode(e.target.value);
   };
@@ -2299,47 +2502,84 @@ function Enable2FA() {
     _components_axios_AxiosInterceptor__WEBPACK_IMPORTED_MODULE_1__.instance.post('/user/me/enable-2fa/verify', {
       code: totpCode
     }).then(function (response) {
+      setSuccess(true);
+      setUser(function (user) {
+        return _objectSpread(_objectSpread({}, user), {}, {
+          google2fa_enabled: true
+        });
+      });
       console.log('2FA enabled:', response.data);
     })["catch"](function (error) {
       console.error('Error enabling 2FA:', error);
+      setError(true);
+      setErrMessage('Codice 2FA non valido. Riprova.');
     });
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     _components_axios_AxiosInterceptor__WEBPACK_IMPORTED_MODULE_1__.instance.post('/user/me/enable-2fa/request').then(function (response) {
-      console.log('2FA request response:', response.data);
       setQrCodeUrl(response.data.qrCodeUrl);
     })["catch"](function (error) {
-      console.error('Error enabling 2FA:', error);
+      console.error('Error QR Code request:', error);
+      setError(true);
+      setErrMessage('Errore nella richiesta del QR Code. Riprova più tardi.');
     });
   }, []);
-  return qrCodeUrl ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+  return qrCodeUrl ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
     className: "enable-2fa-page",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h1", {
-      children: "Abilitazione Autenticazione a due fattori"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-      children: "Scansiona il QR Code qua sotto con la telecamera del tuo smartphone"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
-      src: qrCodeUrl,
-      alt: "2FA QR Code"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
-      onSubmit: handleOnSubmit,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
-        children: "Una volta scansionato il QR Code, inserisci il codice presente nella tua applicazione per attivare la 2FA:"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-        children: "Inserisci il codice: "
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-        onChange: handleOnChange,
-        type: "text",
-        value: totpCode
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-        type: "submit",
-        children: "Invia codice"
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_general_PopupSuccess__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      open: success,
+      onClose: function onClose() {
+        setSuccess(false);
+        navigate('/profile');
+      },
+      message: "2FA abilitata con successo!"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_general_PopupFailure__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      open: error,
+      onClose: function onClose() {
+        setError(false);
+        setErrMessage('');
+        setTotpCode('');
+      },
+      message: errMessage
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+      className: "enable-2fa-page-header",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("h1", {
+        className: "enable-2fa-page-title",
+        children: ["Abilitazione ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          className: "color-red",
+          children: "Autenticazione a due fattori"
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+        className: "enable-2fa-page-subtitle",
+        children: "Scansiona il QR Code qua sotto con la telecamera del tuo smartphone."
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
-      to: "/profile",
-      children: "Torna al profilo"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      className: "qr-code-container",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("img", {
+        className: "qr-code",
+        src: qrCodeUrl,
+        alt: "2FA QR Code"
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("p", {
+      className: "qr-code-instructions",
+      children: ["Una volta scansionato il QR Code, inserisci il codice presente nella tua applicazione (", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("em", {
+        children: "e.g. Google Authenticator"
+      }), " ) per attivare la 2FA:"]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      className: "form-enable-2fa-container",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_general_Form2FA__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        handleOnSubmit: handleOnSubmit,
+        handleOnChange: handleOnChange,
+        code: totpCode
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("p", {
+      className: "enable-2fa-go-back",
+      children: ["Se hai cambiato idea, puoi sempre tornare ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Link, {
+        to: "/profile",
+        children: "al tuo profilo"
+      }), "."]
     })]
-  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_general_Loader__WEBPACK_IMPORTED_MODULE_2__["default"], {});
+  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_general_Loader__WEBPACK_IMPORTED_MODULE_3__["default"], {});
 }
 
 /***/ }),
@@ -2505,9 +2745,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_axios_AxiosInterceptor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/axios/AxiosInterceptor */ "./resources/react/components/axios/AxiosInterceptor.jsx");
 /* harmony import */ var _contexts_AuthContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../contexts/AuthContext */ "./resources/react/contexts/AuthContext.jsx");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-D52XG6IA.mjs");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-D52XG6IA.mjs");
 /* harmony import */ var _components_general_Loader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/general/Loader */ "./resources/react/components/general/Loader.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _components_general_Form2FA__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/general/Form2FA */ "./resources/react/components/general/Form2FA.jsx");
+/* harmony import */ var _components_general_PopupFailure__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/general/PopupFailure */ "./resources/react/components/general/PopupFailure.jsx");
+/* harmony import */ var _components_general_PopupSuccess__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components/general/PopupSuccess */ "./resources/react/components/general/PopupSuccess.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -2526,8 +2769,12 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
+
+
+
 function Page2FA() {
-  var searchParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.useSearchParams)()[0];
+  var navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_8__.useNavigate)();
+  var searchParams = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_8__.useSearchParams)()[0];
   console.log('Search params:', searchParams);
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_contexts_AuthContext__WEBPACK_IMPORTED_MODULE_2__.AuthContext),
     setUser = _useContext.setUser;
@@ -2535,12 +2782,18 @@ function Page2FA() {
     _useState2 = _slicedToArray(_useState, 2),
     code = _useState2[0],
     setCode = _useState2[1];
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    //Clean up
-    return function () {
-      setCode('');
-    };
-  }, []);
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    error = _useState4[0],
+    setError = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState6 = _slicedToArray(_useState5, 2),
+    success = _useState6[0],
+    setSuccess = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState8 = _slicedToArray(_useState7, 2),
+    message = _useState8[0],
+    setMessage = _useState8[1];
   var handleOnChange = function handleOnChange(e) {
     var value = e.target.value;
     if (/^\d{0,6}$/.test(value)) {
@@ -2550,6 +2803,7 @@ function Page2FA() {
   var handleOnSubmit = function handleOnSubmit(e) {
     e.preventDefault();
     console.log('2FA code submitted:', code);
+    if (code.length < 6) return;
     switch (searchParams.get('context')) {
       case 'login':
         console.log('2FA Page: Login request');
@@ -2560,6 +2814,8 @@ function Page2FA() {
           setUser(response.data.user);
         })["catch"](function (error) {
           console.error('2FA Login error:', error);
+          setError(true);
+          if (error.response.status === 401) setMessage('Codice 2FA non valido. Riprova.');else if (error.response.status === 422) setMessage('Il codice 2FA è obbligatorio. Inseriscilo nel campo apposito.');else setMessage('Errore durante il login. Riprova.');
         });
         break;
       case 'disable':
@@ -2570,11 +2826,15 @@ function Page2FA() {
           console.log('2FA Disable response:', response.data);
           setUser(function (user) {
             return _objectSpread(_objectSpread({}, user), {}, {
-              twoFactorEnabled: false
+              google2fa_enabled: false
             });
           });
+          setSuccess(true);
+          setMessage('2FA disabilitata con successo!');
         })["catch"](function (error) {
           console.error('2FA Disable error:', error);
+          setError(true);
+          if (error.response.status === 401) setMessage('Codice 2FA non valido. Riprova.');else if (error.response.status === 422) setMessage('Il codice 2FA è obbligatorio. Inseriscilo nel campo apposito.');else setMessage('Errore durante la disabilitazione del 2FA. Riprova.');
         });
         break;
       //more to add
@@ -2582,44 +2842,43 @@ function Page2FA() {
         console.error('Invalid request type:', requestType);
     }
   };
-  return searchParams.get('context') ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+  return searchParams.get('context') ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
     className: "page-2fa",
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_general_PopupFailure__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      open: error,
+      onClose: function onClose() {
+        setError(false);
+        setMessage('');
+        setCode('');
+      },
+      message: message
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_general_PopupSuccess__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      open: success,
+      onClose: function onClose() {
+        setSuccess(false);
+        setMessage('');
+        setCode('');
+        navigate('/profile');
+      },
+      message: message
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       className: "form-2fa-container",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h1", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("h1", {
         className: "form-2fa-title",
-        children: ["Autenticazione ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+        children: ["Autenticazione ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
           className: "color-red",
           children: "a due fattori"
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("p", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
         className: "form-2fa-description",
         children: "Per continuare, \xE8 richiesto il codice a 6 cifre. Lo puoi trovare nell'applicazione dedicata sul tuo smartphone."
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("form", {
-        className: "form-2fa",
-        onSubmit: handleOnSubmit,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-          htmlFor: "code",
-          children: "Codice:"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-          id: "code",
-          inputMode: "numeric",
-          onChange: handleOnChange,
-          type: "text",
-          value: code,
-          placeholder: "XXX-XXX",
-          onKeyUp: function onKeyUp(e) {
-            if (e.key === 'Enter') handleOnSubmit(e);
-          }
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
-          disabled: code.length < 6,
-          className: "totp-submit-button",
-          type: "submit",
-          children: "Invia codice"
-        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_general_Form2FA__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        handleOnSubmit: handleOnSubmit,
+        handleOnChange: handleOnChange,
+        code: code
       })]
-    })
-  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_general_Loader__WEBPACK_IMPORTED_MODULE_3__["default"], {});
+    })]
+  }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_general_Loader__WEBPACK_IMPORTED_MODULE_3__["default"], {});
 }
 
 /***/ }),
@@ -3328,6 +3587,7 @@ function Profile() {
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "profile-2fa",
+          id: "profile-2fa",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("h4", {
             children: ["Autenticazione a ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
               className: "color-red",
@@ -5337,6 +5597,30 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, ".react-slideshow-container{display:flex;align-items:center;position:relative}.react-slideshow-container .nav{z-index:10;position:absolute;cursor:pointer}.react-slideshow-container .nav:first-of-type{left:0}.react-slideshow-container .nav:last-of-type{right:0}.react-slideshow-container .default-nav{height:30px;background:rgba(255,255,255,0.6);width:30px;border:0;text-align:center;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center}.react-slideshow-container .default-nav:hover,.react-slideshow-container .default-nav:focus{background:#fff;color:#666;outline:0}.react-slideshow-container .default-nav.disabled:hover{cursor:not-allowed}.react-slideshow-container .default-nav:first-of-type{margin-right:-30px;border-right:0;border-top:0}.react-slideshow-container .default-nav:last-of-type{margin-left:-30px}.react-slideshow-container+ul.indicators{display:flex;flex-wrap:wrap;justify-content:center;margin-top:20px}.react-slideshow-container+ul.indicators li{display:inline-block;position:relative;width:7px;height:7px;padding:5px;margin:0}.react-slideshow-container+ul.indicators .each-slideshow-indicator{border:0;opacity:.25;cursor:pointer;background:transparent;color:transparent}.react-slideshow-container+ul.indicators .each-slideshow-indicator:before{position:absolute;top:0;left:0;width:7px;height:7px;border-radius:50%;content:'';background:#000;text-align:center}.react-slideshow-container+ul.indicators .each-slideshow-indicator:hover,.react-slideshow-container+ul.indicators .each-slideshow-indicator.active{opacity:.75;outline:0}.react-slideshow-fadezoom-wrapper{width:100%;overflow:hidden}.react-slideshow-fadezoom-wrapper .react-slideshow-fadezoom-images-wrap{display:flex;flex-wrap:wrap}.react-slideshow-fadezoom-wrapper .react-slideshow-fadezoom-images-wrap>div{position:relative;opacity:0}.react-slideshow-wrapper .react-slideshow-fade-images-wrap>div[aria-hidden='true']{display:none}.react-slideshow-wrapper.slide{width:100%;overflow:hidden}.react-slideshow-wrapper .images-wrap.horizontal{display:flex;flex-wrap:wrap;width:auto}.react-slideshow-wrapper .images-wrap>div[aria-hidden='true']{display:none}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[13].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[13].oneOf[1].use[2]!./node_modules/reactjs-popup/dist/index.css":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[13].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[13].oneOf[1].use[2]!./node_modules/reactjs-popup/dist/index.css ***!
+  \***************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".popup-content{margin:auto;background:#fff;width:50%;padding:5px;border:1px solid #d7d7d7}[role=tooltip].popup-content{width:200px;box-shadow:0 0 3px rgba(0,0,0,.16);border-radius:5px}.popup-overlay{background:rgba(0,0,0,.5)}[data-popup=tooltip].popup-overlay{background:transparent}.popup-arrow{filter:drop-shadow(0 -3px 3px rgba(0,0,0,.16));color:#fff;stroke-width:2px;stroke:#d7d7d7;stroke-dasharray:30px;stroke-dashoffset:-54px;left:0;right:0;top:0;bottom:0}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -41162,6 +41446,655 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/reactjs-popup/dist/reactjs-popup.esm.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/reactjs-popup/dist/reactjs-popup.esm.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Popup: () => (/* binding */ Popup),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+
+
+
+function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+var useOnEscape = function useOnEscape(handler, active) {
+  if (active === void 0) {
+    active = true;
+  }
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!active) return;
+
+    var listener = function listener(event) {
+      // check if key is an Escape
+      if (event.key === 'Escape') handler(event);
+    };
+
+    document.addEventListener('keyup', listener);
+    return function () {
+      if (!active) return;
+      document.removeEventListener('keyup', listener);
+    };
+  }, [handler, active]);
+};
+var useRepositionOnResize = function useRepositionOnResize(handler, active) {
+  if (active === void 0) {
+    active = true;
+  }
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!active) return;
+
+    var listener = function listener() {
+      handler();
+    };
+
+    window.addEventListener('resize', listener);
+    return function () {
+      if (!active) return;
+      window.removeEventListener('resize', listener);
+    };
+  }, [handler, active]);
+};
+var useOnClickOutside = function useOnClickOutside(ref, handler, active) {
+  if (active === void 0) {
+    active = true;
+  }
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!active) return;
+
+    var listener = function listener(event) {
+      // Do nothing if clicking ref's element or descendent elements
+      var refs = Array.isArray(ref) ? ref : [ref];
+      var contains = false;
+      refs.forEach(function (r) {
+        if (!r.current || r.current.contains(event.target)) {
+          contains = true;
+          return;
+        }
+      });
+      event.stopPropagation();
+      if (!contains) handler(event);
+    };
+
+    document.addEventListener('mousedown', listener);
+    document.addEventListener('touchstart', listener);
+    return function () {
+      if (!active) return;
+      document.removeEventListener('mousedown', listener);
+      document.removeEventListener('touchstart', listener);
+    };
+  }, [ref, handler, active]);
+}; // Make sure that user is not able TAB out of the Modal content on Open
+
+var useTabbing = function useTabbing(contentRef, active) {
+  if (active === void 0) {
+    active = true;
+  }
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (!active) return;
+
+    var listener = function listener(event) {
+      // check if key is an Tab
+      if (event.keyCode === 9) {
+        var _contentRef$current;
+
+        var els = contentRef === null || contentRef === void 0 ? void 0 : (_contentRef$current = contentRef.current) === null || _contentRef$current === void 0 ? void 0 : _contentRef$current.querySelectorAll('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex="0"]');
+        var focusableEls = Array.prototype.slice.call(els);
+
+        if (focusableEls.length === 1) {
+          event.preventDefault();
+          return;
+        }
+
+        var firstFocusableEl = focusableEls[0];
+        var lastFocusableEl = focusableEls[focusableEls.length - 1];
+
+        if (event.shiftKey && document.activeElement === firstFocusableEl) {
+          event.preventDefault();
+          lastFocusableEl.focus();
+        } else if (document.activeElement === lastFocusableEl) {
+          event.preventDefault();
+          firstFocusableEl.focus();
+        }
+      }
+    };
+
+    document.addEventListener('keydown', listener);
+    return function () {
+      if (!active) return;
+      document.removeEventListener('keydown', listener);
+    };
+  }, [contentRef, active]);
+};
+var useIsomorphicLayoutEffect = typeof window !== 'undefined' ? react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect : react__WEBPACK_IMPORTED_MODULE_0__.useEffect;
+
+var Style = {
+  popupContent: {
+    tooltip: {
+      position: 'absolute',
+      zIndex: 999
+    },
+    modal: {
+      position: 'relative',
+      margin: 'auto'
+    }
+  },
+  popupArrow: {
+    height: '8px',
+    width: '16px',
+    position: 'absolute',
+    background: 'transparent',
+    color: '#FFF',
+    zIndex: -1
+  },
+  overlay: {
+    tooltip: {
+      position: 'fixed',
+      top: '0',
+      bottom: '0',
+      left: '0',
+      right: '0',
+      zIndex: 999
+    },
+    modal: {
+      position: 'fixed',
+      top: '0',
+      bottom: '0',
+      left: '0',
+      right: '0',
+      display: 'flex',
+      zIndex: 999
+    }
+  }
+};
+
+var POSITION_TYPES = ['top left', 'top center', 'top right', 'right top', 'right center', 'right bottom', 'bottom left', 'bottom center', 'bottom right', 'left top', 'left center', 'left bottom'];
+
+var getCoordinatesForPosition = function getCoordinatesForPosition(triggerBounding, ContentBounding, position, //PopupPosition | PopupPosition[],
+arrow, _ref) {
+  var offsetX = _ref.offsetX,
+      offsetY = _ref.offsetY;
+  var margin = arrow ? 8 : 0;
+  var args = position.split(' '); // the step N 1 : center the popup content => ok
+
+  var CenterTop = triggerBounding.top + triggerBounding.height / 2;
+  var CenterLeft = triggerBounding.left + triggerBounding.width / 2;
+  var height = ContentBounding.height,
+      width = ContentBounding.width;
+  var top = CenterTop - height / 2;
+  var left = CenterLeft - width / 2;
+  var transform = '';
+  var arrowTop = '0%';
+  var arrowLeft = '0%'; // the  step N 2 : => ok
+
+  switch (args[0]) {
+    case 'top':
+      top -= height / 2 + triggerBounding.height / 2 + margin;
+      transform = "rotate(180deg)  translateX(50%)";
+      arrowTop = '100%';
+      arrowLeft = '50%';
+      break;
+
+    case 'bottom':
+      top += height / 2 + triggerBounding.height / 2 + margin;
+      transform = "rotate(0deg) translateY(-100%) translateX(-50%)";
+      arrowLeft = '50%';
+      break;
+
+    case 'left':
+      left -= width / 2 + triggerBounding.width / 2 + margin;
+      transform = " rotate(90deg)  translateY(50%) translateX(-25%)";
+      arrowLeft = '100%';
+      arrowTop = '50%';
+      break;
+
+    case 'right':
+      left += width / 2 + triggerBounding.width / 2 + margin;
+      transform = "rotate(-90deg)  translateY(-150%) translateX(25%)";
+      arrowTop = '50%';
+      break;
+  }
+
+  switch (args[1]) {
+    case 'top':
+      top = triggerBounding.top;
+      arrowTop = triggerBounding.height / 2 + "px";
+      break;
+
+    case 'bottom':
+      top = triggerBounding.top - height + triggerBounding.height;
+      arrowTop = height - triggerBounding.height / 2 + "px";
+      break;
+
+    case 'left':
+      left = triggerBounding.left;
+      arrowLeft = triggerBounding.width / 2 + "px";
+      break;
+
+    case 'right':
+      left = triggerBounding.left - width + triggerBounding.width;
+      arrowLeft = width - triggerBounding.width / 2 + "px";
+      break;
+  }
+
+  top = args[0] === 'top' ? top - offsetY : top + offsetY;
+  left = args[0] === 'left' ? left - offsetX : left + offsetX;
+  return {
+    top: top,
+    left: left,
+    transform: transform,
+    arrowLeft: arrowLeft,
+    arrowTop: arrowTop
+  };
+};
+
+var getTooltipBoundary = function getTooltipBoundary(keepTooltipInside) {
+  // add viewport
+  var boundingBox = {
+    top: 0,
+    left: 0,
+
+    /* eslint-disable-next-line no-undef */
+    width: window.innerWidth,
+
+    /* eslint-disable-next-line no-undef */
+    height: window.innerHeight
+  };
+
+  if (typeof keepTooltipInside === 'string') {
+    /* eslint-disable-next-line no-undef */
+    var selector = document.querySelector(keepTooltipInside);
+
+    if (true) {
+      if (selector === null) throw new Error(keepTooltipInside + " selector does not exist : keepTooltipInside must be a valid html selector 'class' or 'Id'  or a boolean value");
+    }
+
+    if (selector !== null) boundingBox = selector.getBoundingClientRect();
+  }
+
+  return boundingBox;
+};
+
+var calculatePosition = function calculatePosition(triggerBounding, ContentBounding, position, arrow, _ref2, keepTooltipInside) {
+  var offsetX = _ref2.offsetX,
+      offsetY = _ref2.offsetY;
+  var bestCoords = {
+    arrowLeft: '0%',
+    arrowTop: '0%',
+    left: 0,
+    top: 0,
+    transform: 'rotate(135deg)'
+  };
+  var i = 0;
+  var wrapperBox = getTooltipBoundary(keepTooltipInside);
+  var positions = Array.isArray(position) ? position : [position]; // keepTooltipInside would be activated if the  keepTooltipInside exist or the position is Array
+
+  if (keepTooltipInside || Array.isArray(position)) positions = [].concat(positions, POSITION_TYPES); // add viewPort for WarpperBox
+  // wrapperBox.top = wrapperBox.top + window.scrollY;
+  // wrapperBox.left = wrapperBox.left + window.scrollX;
+
+  while (i < positions.length) {
+    bestCoords = getCoordinatesForPosition(triggerBounding, ContentBounding, positions[i], arrow, {
+      offsetX: offsetX,
+      offsetY: offsetY
+    });
+    var contentBox = {
+      top: bestCoords.top,
+      left: bestCoords.left,
+      width: ContentBounding.width,
+      height: ContentBounding.height
+    };
+
+    if (contentBox.top <= wrapperBox.top || contentBox.left <= wrapperBox.left || contentBox.top + contentBox.height >= wrapperBox.top + wrapperBox.height || contentBox.left + contentBox.width >= wrapperBox.left + wrapperBox.width) {
+      i++;
+    } else {
+      break;
+    }
+  }
+
+  return bestCoords;
+};
+
+var popupIdCounter = 0;
+
+var getRootPopup = function getRootPopup() {
+  var PopupRoot = document.getElementById('popup-root');
+
+  if (PopupRoot === null) {
+    PopupRoot = document.createElement('div');
+    PopupRoot.setAttribute('id', 'popup-root');
+    document.body.appendChild(PopupRoot);
+  }
+
+  return PopupRoot;
+};
+
+var Popup = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(function (_ref, ref) {
+  var _ref$trigger = _ref.trigger,
+      trigger = _ref$trigger === void 0 ? null : _ref$trigger,
+      _ref$onOpen = _ref.onOpen,
+      onOpen = _ref$onOpen === void 0 ? function () {} : _ref$onOpen,
+      _ref$onClose = _ref.onClose,
+      onClose = _ref$onClose === void 0 ? function () {} : _ref$onClose,
+      _ref$defaultOpen = _ref.defaultOpen,
+      defaultOpen = _ref$defaultOpen === void 0 ? false : _ref$defaultOpen,
+      _ref$open = _ref.open,
+      open = _ref$open === void 0 ? undefined : _ref$open,
+      _ref$disabled = _ref.disabled,
+      disabled = _ref$disabled === void 0 ? false : _ref$disabled,
+      _ref$nested = _ref.nested,
+      nested = _ref$nested === void 0 ? false : _ref$nested,
+      _ref$closeOnDocumentC = _ref.closeOnDocumentClick,
+      closeOnDocumentClick = _ref$closeOnDocumentC === void 0 ? true : _ref$closeOnDocumentC,
+      _ref$repositionOnResi = _ref.repositionOnResize,
+      repositionOnResize = _ref$repositionOnResi === void 0 ? true : _ref$repositionOnResi,
+      _ref$closeOnEscape = _ref.closeOnEscape,
+      closeOnEscape = _ref$closeOnEscape === void 0 ? true : _ref$closeOnEscape,
+      _ref$on = _ref.on,
+      on = _ref$on === void 0 ? ['click'] : _ref$on,
+      _ref$contentStyle = _ref.contentStyle,
+      contentStyle = _ref$contentStyle === void 0 ? {} : _ref$contentStyle,
+      _ref$arrowStyle = _ref.arrowStyle,
+      arrowStyle = _ref$arrowStyle === void 0 ? {} : _ref$arrowStyle,
+      _ref$overlayStyle = _ref.overlayStyle,
+      overlayStyle = _ref$overlayStyle === void 0 ? {} : _ref$overlayStyle,
+      _ref$className = _ref.className,
+      className = _ref$className === void 0 ? '' : _ref$className,
+      _ref$position = _ref.position,
+      position = _ref$position === void 0 ? 'bottom center' : _ref$position,
+      _ref$modal = _ref.modal,
+      modal = _ref$modal === void 0 ? false : _ref$modal,
+      _ref$lockScroll = _ref.lockScroll,
+      lockScroll = _ref$lockScroll === void 0 ? false : _ref$lockScroll,
+      _ref$arrow = _ref.arrow,
+      arrow = _ref$arrow === void 0 ? true : _ref$arrow,
+      _ref$offsetX = _ref.offsetX,
+      offsetX = _ref$offsetX === void 0 ? 0 : _ref$offsetX,
+      _ref$offsetY = _ref.offsetY,
+      offsetY = _ref$offsetY === void 0 ? 0 : _ref$offsetY,
+      _ref$mouseEnterDelay = _ref.mouseEnterDelay,
+      mouseEnterDelay = _ref$mouseEnterDelay === void 0 ? 100 : _ref$mouseEnterDelay,
+      _ref$mouseLeaveDelay = _ref.mouseLeaveDelay,
+      mouseLeaveDelay = _ref$mouseLeaveDelay === void 0 ? 100 : _ref$mouseLeaveDelay,
+      _ref$keepTooltipInsid = _ref.keepTooltipInside,
+      keepTooltipInside = _ref$keepTooltipInsid === void 0 ? false : _ref$keepTooltipInsid,
+      children = _ref.children;
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(open || defaultOpen),
+      isOpen = _useState[0],
+      setIsOpen = _useState[1];
+
+  var triggerRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var contentRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var arrowRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var focusedElBeforeOpen = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var popupId = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)("popup-" + ++popupIdCounter);
+  var isModal = modal ? true : !trigger;
+  var timeOut = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
+  useIsomorphicLayoutEffect(function () {
+    if (isOpen) {
+      focusedElBeforeOpen.current = document.activeElement;
+      setPosition();
+      focusContentOnOpen(); // for accessibility
+
+      lockScrolll();
+    } else {
+      resetScroll();
+    }
+
+    return function () {
+      clearTimeout(timeOut.current);
+    };
+  }, [isOpen]); // for uncontrolled popup we need to sync isOpen with open prop
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (typeof open === 'boolean') {
+      if (open) openPopup();else closePopup();
+    }
+  }, [open, disabled]);
+
+  var openPopup = function openPopup(event) {
+    if (isOpen || disabled) return;
+    setIsOpen(true);
+    setTimeout(function () {
+      return onOpen(event);
+    }, 0);
+  };
+
+  var closePopup = function closePopup(event) {
+    var _focusedElBeforeOpen$;
+
+    if (!isOpen || disabled) return;
+    setIsOpen(false);
+    if (isModal) (_focusedElBeforeOpen$ = focusedElBeforeOpen.current) === null || _focusedElBeforeOpen$ === void 0 ? void 0 : _focusedElBeforeOpen$.focus();
+    setTimeout(function () {
+      return onClose(event);
+    }, 0);
+  };
+
+  var togglePopup = function togglePopup(event) {
+    event === null || event === void 0 ? void 0 : event.stopPropagation();
+    if (!isOpen) openPopup(event);else closePopup(event);
+  };
+
+  var onMouseEnter = function onMouseEnter(event) {
+    clearTimeout(timeOut.current);
+    timeOut.current = setTimeout(function () {
+      return openPopup(event);
+    }, mouseEnterDelay);
+  };
+
+  var onContextMenu = function onContextMenu(event) {
+    event === null || event === void 0 ? void 0 : event.preventDefault();
+    togglePopup();
+  };
+
+  var onMouseLeave = function onMouseLeave(event) {
+    clearTimeout(timeOut.current);
+    timeOut.current = setTimeout(function () {
+      return closePopup(event);
+    }, mouseLeaveDelay);
+  };
+
+  var lockScrolll = function lockScrolll() {
+    if (isModal && lockScroll) document.getElementsByTagName('body')[0].style.overflow = 'hidden'; // migrate to document.body
+  };
+
+  var resetScroll = function resetScroll() {
+    if (isModal && lockScroll) document.getElementsByTagName('body')[0].style.overflow = 'auto';
+  };
+
+  var focusContentOnOpen = function focusContentOnOpen() {
+    var _contentRef$current;
+
+    var focusableEls = contentRef === null || contentRef === void 0 ? void 0 : (_contentRef$current = contentRef.current) === null || _contentRef$current === void 0 ? void 0 : _contentRef$current.querySelectorAll('a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex="0"]');
+    var firstEl = Array.prototype.slice.call(focusableEls)[0];
+    firstEl === null || firstEl === void 0 ? void 0 : firstEl.focus();
+  };
+
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useImperativeHandle)(ref, function () {
+    return {
+      open: function open() {
+        openPopup();
+      },
+      close: function close() {
+        closePopup();
+      },
+      toggle: function toggle() {
+        togglePopup();
+      }
+    };
+  }); // set Position
+
+  var setPosition = function setPosition() {
+    if (isModal || !isOpen) return;
+    if (!(triggerRef === null || triggerRef === void 0 ? void 0 : triggerRef.current) || !(triggerRef === null || triggerRef === void 0 ? void 0 : triggerRef.current) || !(contentRef === null || contentRef === void 0 ? void 0 : contentRef.current)) return; /// show error as one of ref is undefined
+
+    var trigger = triggerRef.current.getBoundingClientRect();
+    var content = contentRef.current.getBoundingClientRect();
+    var cords = calculatePosition(trigger, content, position, arrow, {
+      offsetX: offsetX,
+      offsetY: offsetY
+    }, keepTooltipInside);
+    contentRef.current.style.top = cords.top + window.scrollY + "px";
+    contentRef.current.style.left = cords.left + window.scrollX + "px";
+
+    if (arrow && !!arrowRef.current) {
+      var _arrowStyle$top, _arrowStyle$left;
+
+      arrowRef.current.style.transform = cords.transform;
+      arrowRef.current.style.setProperty('-ms-transform', cords.transform);
+      arrowRef.current.style.setProperty('-webkit-transform', cords.transform);
+      arrowRef.current.style.top = ((_arrowStyle$top = arrowStyle.top) === null || _arrowStyle$top === void 0 ? void 0 : _arrowStyle$top.toString()) || cords.arrowTop;
+      arrowRef.current.style.left = ((_arrowStyle$left = arrowStyle.left) === null || _arrowStyle$left === void 0 ? void 0 : _arrowStyle$left.toString()) || cords.arrowLeft;
+    }
+  }; // hooks
+
+
+  useOnEscape(closePopup, closeOnEscape); // can be optimized if we disabled for hover
+
+  useTabbing(contentRef, isOpen && isModal);
+  useRepositionOnResize(setPosition, repositionOnResize);
+  useOnClickOutside(!!trigger ? [contentRef, triggerRef] : [contentRef], closePopup, closeOnDocumentClick && !nested); // we need to add a ne
+  // render the trigger element and add events
+
+  var renderTrigger = function renderTrigger() {
+    var triggerProps = {
+      key: 'T',
+      ref: triggerRef,
+      'aria-describedby': popupId.current
+    };
+    var onAsArray = Array.isArray(on) ? on : [on];
+
+    for (var i = 0, len = onAsArray.length; i < len; i++) {
+      switch (onAsArray[i]) {
+        case 'click':
+          triggerProps.onClick = togglePopup;
+          break;
+
+        case 'right-click':
+          triggerProps.onContextMenu = onContextMenu;
+          break;
+
+        case 'hover':
+          triggerProps.onMouseEnter = onMouseEnter;
+          triggerProps.onMouseLeave = onMouseLeave;
+          break;
+
+        case 'focus':
+          triggerProps.onFocus = onMouseEnter;
+          triggerProps.onBlur = onMouseLeave;
+          break;
+      }
+    }
+
+    if (typeof trigger === 'function') {
+      var comp = trigger(isOpen);
+      return !!trigger && react__WEBPACK_IMPORTED_MODULE_0___default().cloneElement(comp, triggerProps);
+    }
+
+    return !!trigger && react__WEBPACK_IMPORTED_MODULE_0___default().cloneElement(trigger, triggerProps);
+  };
+
+  var addWarperAction = function addWarperAction() {
+    var popupContentStyle = isModal ? Style.popupContent.modal : Style.popupContent.tooltip;
+    var childrenElementProps = {
+      className: "popup-content " + (className !== '' ? className.split(' ').map(function (c) {
+        return c + "-content";
+      }).join(' ') : ''),
+      style: _extends({}, popupContentStyle, contentStyle, {
+        pointerEvents: 'auto'
+      }),
+      ref: contentRef,
+      onClick: function onClick(e) {
+        e.stopPropagation();
+      }
+    };
+
+    if (!modal && on.indexOf('hover') >= 0) {
+      childrenElementProps.onMouseEnter = onMouseEnter;
+      childrenElementProps.onMouseLeave = onMouseLeave;
+    }
+
+    return childrenElementProps;
+  };
+
+  var renderContent = function renderContent() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", Object.assign({}, addWarperAction(), {
+      key: "C",
+      role: isModal ? 'dialog' : 'tooltip',
+      id: popupId.current
+    }), arrow && !isModal && react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      ref: arrowRef,
+      style: Style.popupArrow
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("svg", {
+      "data-testid": "arrow",
+      className: "popup-arrow " + (className !== '' ? className.split(' ').map(function (c) {
+        return c + "-arrow";
+      }).join(' ') : ''),
+      viewBox: "0 0 32 16",
+      style: _extends({
+        position: 'absolute'
+      }, arrowStyle)
+    }, react__WEBPACK_IMPORTED_MODULE_0___default().createElement("path", {
+      d: "M16 0l16 16H0z",
+      fill: "currentcolor"
+    }))), children && typeof children === 'function' ? children(closePopup, isOpen) : children);
+  };
+
+  var overlay = !(on.indexOf('hover') >= 0);
+  var ovStyle = isModal ? Style.overlay.modal : Style.overlay.tooltip;
+  var content = [overlay && react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    key: "O",
+    "data-testid": "overlay",
+    "data-popup": isModal ? 'modal' : 'tooltip',
+    className: "popup-overlay " + (className !== '' ? className.split(' ').map(function (c) {
+      return c + "-overlay";
+    }).join(' ') : ''),
+    style: _extends({}, ovStyle, overlayStyle, {
+      pointerEvents: closeOnDocumentClick && nested || isModal ? 'auto' : 'none'
+    }),
+    onClick: closeOnDocumentClick && nested ? closePopup : undefined,
+    tabIndex: -1
+  }, isModal && renderContent()), !isModal && renderContent()];
+  return react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, renderTrigger(), isOpen && react_dom__WEBPACK_IMPORTED_MODULE_1__.createPortal(content, getRootPopup()));
+});
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Popup);
+
+//# sourceMappingURL=reactjs-popup.esm.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/resize-observer-polyfill/dist/ResizeObserver.es.js":
 /*!*************************************************************************!*\
   !*** ./node_modules/resize-observer-polyfill/dist/ResizeObserver.es.js ***!
@@ -43028,6 +43961,36 @@ var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMP
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_ruleSet_1_rules_13_oneOf_1_use_1_postcss_loader_dist_cjs_js_ruleSet_1_rules_13_oneOf_1_use_2_styles_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/reactjs-popup/dist/index.css":
+/*!***************************************************!*\
+  !*** ./node_modules/reactjs-popup/dist/index.css ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _css_loader_dist_cjs_js_ruleSet_1_rules_13_oneOf_1_use_1_postcss_loader_dist_cjs_js_ruleSet_1_rules_13_oneOf_1_use_2_index_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../css-loader/dist/cjs.js??ruleSet[1].rules[13].oneOf[1].use[1]!../../postcss-loader/dist/cjs.js??ruleSet[1].rules[13].oneOf[1].use[2]!./index.css */ "./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[13].oneOf[1].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[13].oneOf[1].use[2]!./node_modules/reactjs-popup/dist/index.css");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_ruleSet_1_rules_13_oneOf_1_use_1_postcss_loader_dist_cjs_js_ruleSet_1_rules_13_oneOf_1_use_2_index_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_ruleSet_1_rules_13_oneOf_1_use_1_postcss_loader_dist_cjs_js_ruleSet_1_rules_13_oneOf_1_use_2_index_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
 
 /***/ }),
 

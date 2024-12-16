@@ -87,7 +87,156 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-
     padding: 0;
-
 }
+
+.enable-2fa-page-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0;
+    margin-bottom: 0.5rem;
+    padding: 0 0.8rem;
+}
+
+.enable-2fa-page-header .enable-2fa-page-title {
+    margin: 0;
+    margin-top: 1.5rem;
+}
+
+.enable-2fa-page-header .enable-2fa-page-subtitle {
+    margin: 0.5rem 0;
+}
+
+.qr-code-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    margin-top: 1rem;
+    box-shadow: 0 0 7px 7px #0000001a;
+}
+
+.qr-code-container .qr-code {
+    width: 100%;
+    height: auto;
+}
+
+.qr-code-instructions {
+    margin-top: 1rem;
+    padding: 0 1.5rem;
+    text-align: center;
+}
+
+.form-enable-2fa-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.2rem 0.5rem;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 2rem;
+}
+
+.enable-2fa-go-back {
+    margin: 0;
+    padding: 0 0.8rem;
+    text-align: center;
+}
+
+.disable-2fa-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0;
+}
+
+.disable-2fa-title {
+    padding: 0 0.8rem;
+    margin: 1.5rem 0;
+    text-align: center;
+}
+
+.disable-2fa-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 75%;
+    padding: 0.8rem;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px 3px #0000001a;
+}
+
+.disable-2fa-text {
+    margin: 0;
+}
+
+.disable-2fa-content p {
+    margin: 0;
+    margin-top: 0.5rem;
+}
+
+.disable-2fa-content .btn-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.disable-2fa-content .btn-group button {
+    font-family: var(--font-family);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0.5rem;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid #797979;
+    border-radius: 5px;
+    font-weight: 600;
+    letter-spacing: 0.02rem;
+    cursor: pointer;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.disable-2fa-content .btn-group .disable-button {
+    background-color: #858585;
+    color: white;
+}
+
+.disable-2fa-content .btn-group .disable-button:hover {
+    background-color: #c0c0c0;
+}
+
+.disable-2fa-content .btn-group .disable-button:active {
+    background-color: #6e6e6e;
+    color: #f1f1f1;
+    box-shadow: 1px 1px 2px 1.5px #0000001a inset;
+}
+
+.disable-2fa-content .btn-group .cancel-button {
+    background-color: #ff3434;
+    color: white;
+}
+
+.disable-2fa-content .btn-group .cancel-button:hover {
+    background-color: #ff5e5e;
+}
+
+.disable-2fa-content .btn-group .cancel-button:active {
+    background-color: #ff1f1f;
+    color: #f1f1f1;
+    box-shadow: 1px 1px 2px 1.5px #0000001a inset;
+}
+
+
+
+
