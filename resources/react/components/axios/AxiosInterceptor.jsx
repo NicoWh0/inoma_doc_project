@@ -8,7 +8,7 @@ const instance = axios.create({
     timeout: 10000,
     headers: {
         //'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json;multipart/form-data',
         //'Access-Control-Allow-Origin': '*',
     },
     withCredentials: true,

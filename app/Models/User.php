@@ -65,4 +65,10 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $appends = [
         'email_verified',
     ];
+
+
+    public function documents()
+    {
+        return $this->belongsToMany(Document::class);
+    }
 }

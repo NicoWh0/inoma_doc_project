@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DocumentationController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 
@@ -66,8 +67,14 @@ Route::get('/user/me', function (Request $request) {
     return $request->user()->only('type', 'username', 'email', 'email_verified', 'google2fa_enabled');
 })->middleware('auth:sanctum');
 
+Route::get('/user/standard',
+    [UserController::class, 'getAvailableStandardUsers']
+)->middleware(['auth:sanctum', 'auth.admin']);
+
 //Documentation sharing routes
-//Route::post('/documentation', )
+Route::post('/documentation',
+    [DocumentationController::class, 'upload']
+)->middleware(['auth:sanctum', 'auth.admin']);
 
 //Per il client-side routing
 Route::get('/{any}', function () {

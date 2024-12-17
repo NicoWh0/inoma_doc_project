@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Log;
 
 class UserController extends Controller
 {
@@ -19,5 +20,32 @@ class UserController extends Controller
         $newUsername = $request->input('username');
         User::where('id', $request->user()->id)->update(['username' => $newUsername]);
         return response()->json(['message' => 'Username changed successfully'], 200);
+    }
+
+    public function getAvailableStandardUsers(Request $request) {
+        $search = $request->query('search');
+
+        if($search && strlen($search) > 320) {
+            return response()->json(['message' => 'Search query too long'], 422);
+        }
+
+        if(!$search) {
+            $users = User::where('type', 0)->where('user_status', 1)
+                ->orderByDesc('created_at')
+                ->limit(20)
+                ->select('id', 'username', 'email')->get();
+            return response()->json($users, 200);
+        }
+
+        $users = User::where('type', 0)->where('user_status', 1)->where(
+            function($query) use ($search) {
+                $query->where('username', 'like', "%$search%")
+                    ->orWhere('email', 'like', "%$search%");
+            }
+        )
+        ->orderByDesc('created_at')->limit(20)
+        ->select('id', 'username', 'email')->get();
+
+        return response()->json($users, 200);
     }
 }

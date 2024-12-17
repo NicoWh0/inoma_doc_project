@@ -10,7 +10,7 @@ class Document extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'user_id',
+        'uploader',
         'title',
         'category_id',
         'file_path',
@@ -19,7 +19,7 @@ class Document extends Model
     ];
 
     protected $casts = [
-        'user_id' => 'integer',
+        'uploader' => 'integer',
         'category_id' => 'integer',
         'document_status' => 'integer',
         'created_at' => 'datetime',
@@ -35,5 +35,10 @@ class Document extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
     }
 }

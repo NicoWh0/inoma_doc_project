@@ -1,0 +1,138 @@
+.doc-manager-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.doc-manager-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.5em 0;
+    border-bottom: 1px solid #bebebe;
+    background-color: #ffffff;
+}
+
+.doc-manager-header-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 33.33333%;
+    transition: background-color 0.2s;
+}
+
+.doc-manager-category-manager-link {
+    border-right: 1px solid #bebebe;
+    border-left: 1px solid #bebebe;
+}
+
+.doc-manager-header-link button {
+    font-family: var(--font-family);
+    font-size: 1.1em;
+    font-weight: 500;
+    border: none;
+    color: #6d6d6d;
+    cursor: pointer;
+    background-color: inherit;
+    transition: color 0.2s ease;
+}
+
+.doc-manager-header-link button:hover, .doc-manager-header-link button.selected {
+    background-color: inherit;
+    color: #000000;
+}
+
+.doc-manager-header-link button span.color-red {
+    color: #ff5d5d;
+    transition: color 0.2s ease;
+}
+
+.doc-manager-header-link button:hover span.color-red, .doc-manager-header-link button.selected span.color-red {
+    color: var(--color-red);
+}
+
+.doc-manager-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.doc-upload-title {
+    margin-top: 1em;
+    text-align: center;
+    padding: 0 0.9rem;
+}
+
+.doc-upload-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    padding: 1.2rem;
+    margin-top: 1em;
+    background-color: #ffffff;
+    border: 1px solid #bebebe;
+    border-radius: 5px;
+    box-shadow: 0 0 3px 2px #00000060;
+}
+
+.doc-upload-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1em;
+}
+
+.doc-upload-form .form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1em;
+}
+
+.doc-upload-form .form-group label {
+    font-size: 1.1em;
+    font-weight: 500;
+    margin-bottom: 0.5em;
+}
+
+.doc-upload-form .form-group input, .doc-upload-form .form-group textarea {
+    font-family: var(--font-family);
+    font-size: 1em;
+    padding: 0.3rem 0;
+    padding-left: 0.2rem;
+    border: 1px solid #bebebe;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.doc-user-form {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: center;
+    width: 100%;
+}
+
+.doc-user-select {
+    width: 100%;
+}
+
+.doc-user-select-item {
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.5em 0;
+    border-bottom: 1px solid #bebebe;
+}

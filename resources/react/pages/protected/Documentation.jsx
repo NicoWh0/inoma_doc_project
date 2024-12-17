@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../contexts/AuthContext';
+import DocSearch from './DocSearch';
+import DocManager from './DocManager';
 
 
 //TODO: Implementare la pagina di documentazione
 export default function Documentation() {
-    return (
-        <div className="documentation-page">
-            <h1>Documentazione</h1>
-            <p>Benvenuto nella sezione documentazione. Qui troverai tutti i documenti necessari per la tua attività.</p>
-            <p>Se hai bisogno di ulteriori documenti, non esitare a contattarci.</p>
-        </div>
-    );
+    const { user } = useContext(AuthContext);
+
+    if(user.type === 0) {
+        return <DocSearch />;
+    }
+    else return <DocManager />;
 }

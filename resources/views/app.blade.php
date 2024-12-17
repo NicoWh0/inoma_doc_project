@@ -22,6 +22,7 @@
         <link href="{{ mix('css/notfound.css') }}" rel="stylesheet">
         <link href="{{ mix('css/profile.css') }}" rel="stylesheet">
         <link href="{{ mix('css/page2fa.css') }}" rel="stylesheet">
+        <link href="{{ mix('css/documentation.css') }}" rel="stylesheet">
     </head>
     <body>
         <div id="root"></div>
