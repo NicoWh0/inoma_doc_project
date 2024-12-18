@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
-import DocSearch from './DocSearch';
+import MyDocs from './MyDocs';
 import DocManager from './DocManager';
 
 
@@ -9,7 +9,7 @@ export default function Documentation() {
     const { user } = useContext(AuthContext);
 
     if(user.type === 0) {
-        return <DocSearch />;
+        return <MyDocs />;
     }
     else return <DocManager />;
 }

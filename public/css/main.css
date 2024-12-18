@@ -8,6 +8,10 @@ body {
     font-family: var(--font-family);
 }
 
+textarea {
+    resize: none;
+}
+
 .fixed {
     position: fixed;
 }

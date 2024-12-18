@@ -2,9 +2,10 @@ import React, {useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { instance as axios } from "../../components/axios/AxiosInterceptor";
 import { AuthContext } from "../../contexts/AuthContext";
+import PopupFailure from "../../components/general/PopupFailure";
 
 export default function Login() {
-
+    const [failed, setFailed] = useState(false);
     const [formData, setFormData] = useState({
         identifier: '',
         password: ''
@@ -26,6 +27,7 @@ export default function Login() {
             .catch(error => {
                 console.error(error);
                 console.log("Login Page: login failed");
+                setFailed(true);
             });
     }
 
@@ -38,6 +40,7 @@ export default function Login() {
 
     return (
         <div className="login-page">
+            <PopupFailure open={failed} onClose={() => setFailed(false)} message="Credenziali non valide. Riprova." />
             <h1 className="login-title"><span className="color-red">Accedi</span> alla piattaforma</h1>
             <form onSubmit={handleSubmit} className="login-form">
                 <div className="form-group">

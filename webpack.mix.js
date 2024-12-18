@@ -36,6 +36,9 @@ mix.js('resources/react/app.js', 'public/js').react()
     .postCss('resources/css/page2fa.css', 'public/css', [
         require("tailwindcss"),
     ])
-    .postCss('resources/css/documentation.css', 'public/css', [
+    .postCss('resources/css/documentation-standard.css', 'public/css', [
+        require("tailwindcss"),
+    ])
+    .postCss('resources/css/documentation-admin.css', 'public/css', [
         require("tailwindcss"),
     ])

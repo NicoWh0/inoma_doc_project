@@ -29,23 +29,25 @@ class UserController extends Controller
             return response()->json(['message' => 'Search query too long'], 422);
         }
 
+        $users = [];
+
         if(!$search) {
             $users = User::where('type', 0)->where('user_status', 1)
                 ->orderByDesc('created_at')
                 ->limit(20)
                 ->select('id', 'username', 'email')->get();
-            return response()->json($users, 200);
+        }
+        else {
+            $users = User::where('type', 0)->where('user_status', 1)->where(
+                function($query) use ($search) {
+                    $query->where('username', 'like', "%$search%")
+                        ->orWhere('email', 'like', "%$search%");
+                }
+            )
+            ->orderByDesc('created_at')->limit(20)
+            ->select('id', 'username', 'email')->get();
         }
 
-        $users = User::where('type', 0)->where('user_status', 1)->where(
-            function($query) use ($search) {
-                $query->where('username', 'like', "%$search%")
-                    ->orWhere('email', 'like', "%$search%");
-            }
-        )
-        ->orderByDesc('created_at')->limit(20)
-        ->select('id', 'username', 'email')->get();
-
-        return response()->json($users, 200);
+        return count($users) === 0 ? response()->json(['message' => 'No users found'], 404) : response()->json($users, 200);
     }
 }

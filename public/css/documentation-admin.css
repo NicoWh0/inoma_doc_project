@@ -1,0 +1,285 @@
+.doc-manager-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.doc-manager-header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.5em 0;
+    border-bottom: 1px solid #bebebe;
+    background-color: #ffffff;
+}
+
+.doc-manager-header-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 33.33333%;
+    transition: background-color 0.2s;
+}
+
+.doc-manager-category-manager-link {
+    border-right: 1px solid #bebebe;
+    border-left: 1px solid #bebebe;
+}
+
+.doc-manager-header-link button {
+    font-family: var(--font-family);
+    font-size: 1.1em;
+    font-weight: 500;
+    border: none;
+    color: #6d6d6d;
+    cursor: pointer;
+    background-color: inherit;
+    transition: color 0.2s ease;
+}
+
+.doc-manager-header-link button:hover, .doc-manager-header-link button.selected {
+    background-color: inherit;
+    color: #000000;
+}
+
+.doc-manager-header-link button span.color-red {
+    color: #ff5d5d;
+    transition: color 0.2s ease;
+}
+
+.doc-manager-header-link button:hover span.color-red, .doc-manager-header-link button.selected span.color-red {
+    color: var(--color-red);
+}
+
+.doc-manager-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.doc-upload-title {
+    margin-top: 1em;
+    text-align: center;
+    padding: 0 0.9rem;
+}
+
+.doc-upload-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    padding: 1.2rem;
+    margin-top: 1em;
+    background-color: #ffffff;
+    border: 1px solid #bebebe;
+    border-radius: 5px;
+    box-shadow: 0 0 3px 2px #00000041;
+}
+
+.doc-upload-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    margin-top: 1em;
+}
+
+.doc-upload-form .form-group {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1em;
+}
+
+.doc-upload-form .form-group label {
+    font-size: 1.1em;
+    font-weight: 500;
+    margin-bottom: 0.5em;
+}
+
+.doc-upload-form .form-group input, .doc-upload-form .form-group textarea, .doc-user-search {
+    font-family: var(--font-family);
+    font-size: 1em;
+    padding: 0.3rem 0;
+    padding-left: 0.5rem;
+    border: 1px solid #bebebe;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.doc-upload-form .form-group input:focus, .doc-upload-form .form-group textarea:focus {
+    outline: none;
+    border-color: rgba(255, 93, 93, 0.47);
+    box-shadow: 0 0 2px 2px rgba(255, 69, 69, 0.25);
+}
+
+.doc-upload-form .form-group input {
+    min-height: 1.2rem;
+}
+
+.doc-upload-form .form-group textarea {
+    height: 9em;
+}
+
+.doc-upload-form .form-group .remaining-chars {
+    visibility: hidden;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding-right: 0.2rem;
+    padding-bottom: 0.2rem;
+    font-size: 0.8em;
+    color: #6d6d6d;
+    margin-top: 0.2em;
+}
+
+.doc-upload-form .form-group .remaining-chars.visible {
+    visibility: visible;
+}
+
+.doc-upload-form .form-group input::-moz-placeholder, .doc-upload-form .form-group textarea::-moz-placeholder {
+    font-size: 0.9em;
+}
+
+.doc-upload-form .form-group input::placeholder, .doc-upload-form .form-group textarea::placeholder {
+    font-size: 0.9em;
+}
+
+.doc-upload-category {
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid #bebebe;
+    padding-bottom: 0.25rem;
+    margin-bottom: 0.2rem;
+}
+
+.doc-user-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.doc-user-search {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 45% !important;
+    height: 100%;
+}
+
+.doc-user-search.focused {
+    border-color: rgba(255, 93, 93, 0.47);
+    box-shadow: 0 0 2px 2px rgba(255, 69, 69, 0.25);
+}
+
+.doc-upload-form .form-group .doc-user-search input {
+    width: 80%;
+    border: none;
+    padding: none;
+}
+
+.doc-upload-form .form-group .doc-user-search:focus {
+    border-color: rgba(255, 93, 93, 0.47);
+    box-shadow: 0 0 2px 2px rgba(255, 69, 69, 0.25);
+}
+
+.doc-upload-form .form-group .doc-user-search input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.doc-user-search-icon {
+    margin-left: 0.5rem;
+    padding-right: 0.5rem;
+    height: 100%;
+}
+
+.doc-user-search-icon img {
+    height: 15px;
+    width: auto;
+    margin-top: 0.3rem;
+}
+
+.doc-user-select-item {
+    font-size: 0.9rem;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.5em 0;
+    border-bottom: 1px solid #bebebe;
+}
+
+.doc-user-select-item-inline {
+    width: 100%;
+}
+
+.doc-upload-file-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    border: 1px solid #bebebe;
+    border-radius: 5px;
+    padding: 0.5em 0.5em;
+    cursor: pointer;
+}
+
+.doc-upload-file-label-text {
+    font-size: 1em;
+    font-weight: 500;
+    color: #6d6d6d;
+}
+
+.doc-upload-file-name {
+    font-size: 0.9em;
+    font-weight: 400;
+    max-width: 70%;
+    color: #868686;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.doc-upload-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.doc-upload-button-container .doc-upload-button {
+    font-family: var(--font-family);
+    font-size: 1.1em;
+    font-weight: 500;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    background-color: #ff5d5d;
+    color: #ffffff;
+    transition: background-color 0.2s;
+}
+
+.doc-upload-button-container .doc-upload-button:hover {
+    background-color: var(--color-red);
+}
+
+.doc-upload-button-container .doc-upload-button[disabled] {
+    background-color: #bebebe;
+    cursor: not-allowed;
+}
+
