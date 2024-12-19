@@ -6,13 +6,15 @@ import TinyLoader from "../general/TinyLoader";
 import PopupSuccess from "../general/PopupSuccess";
 
 import _ from 'lodash';
+import PopupFailure from "../general/PopupFailure";
 
 export default function DocUpload({categories}) {
     const [userOptions, setUserOptions] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [searching, setSearching] = useState({inProgress: true, success: false});
     const [searchFocus, setSearchFocus] = useState(false);
-    const [uploadSuccess, setUploadSuccess] = useState(false);
+    const [uploadState, setUploadState] = useState(0);
+    const [errorMessage, setErrorMessage] = useState('');
     const [formData, setFormData] = useState({
         title: '',
         category: '',
@@ -88,11 +90,18 @@ export default function DocUpload({categories}) {
         e.preventDefault();
         console.log('Document upload form submitted');
         console.log(formData);
-        axios.post('/documentation', formData).then(response => {
+        const sanizitedForm = {
+            ...formData,
+            title: formData.title.trim(),
+            description: formData.description.trim()
+        }
+        axios.post('/documentation', sanizitedForm).then(response => {
             console.log('Document upload response:', response.data);
-            setUploadSuccess(true);
+            setUploadState(1);
         }).catch(error => {
             console.error('Document upload error:', error);
+            setUploadState(-1);
+            setErrorMessage(error.response.data.message);
         });
     }
 
@@ -140,9 +149,14 @@ export default function DocUpload({categories}) {
     return (
         <>
             <PopupSuccess
-                open={uploadSuccess}
-                onClose={() => setUploadSuccess(false)} //TODO: Redirect to document page
+                open={uploadState === 1}
+                onClose={() => setUploadState(0)} //TODO: Redirect to document page
                 message="Documento caricato con successo!"
+            />
+            <PopupFailure
+                open={uploadState === -1}
+                onClose={() => setUploadState(0)}
+                message={errorMessage}
             />
             <div className="doc-upload-title">
                 <h1><span className="color-red">Carica</span> Documento</h1>
@@ -158,7 +172,8 @@ export default function DocUpload({categories}) {
                             name="title"
                             placeholder="Inserire il titolo del documento (4-32 caratteri)"
                             value={formData.title}
-                            required />
+                            required
+                        />
                     </div>
                     <div className="form-group">
                         <label htmlFor="category">Categoria<span className="color-red">*</span></label>

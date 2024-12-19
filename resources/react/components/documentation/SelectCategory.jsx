@@ -7,20 +7,21 @@ const SingleValue = props => (
     </components.SingleValue>
 );
 
-export default function SelectCategory({id, renderCategories, handleSelectChange}) {
+export default function SelectCategory({id, renderCategories, handleSelectChange, width, height}) {
     return (
         <Select
             inputId={id}
             styles={{
                 container: (base) => ({
                     ...base,
-                    width: '50%',
+                    width: width || base.width,
+                    height: height || base.height,
                 }),
                 menu: (base) => ({
                     ...base,
                     zIndex: '100',
                     maxHeight: '200px',
-                    width: '100%',
+                    width: width || base.width,
                     overflowY: 'auto',
                 }),
                 control: (base, state) => ({
@@ -31,6 +32,8 @@ export default function SelectCategory({id, renderCategories, handleSelectChange
                         borderColor: state.isFocused ? 'rgba(255, 93, 93, 0.47)' : 'rgba(107, 107, 107, 0.47)',
                     },
                     cursor: 'pointer',
+                    width: width || base.width,
+                    height: height || base.height,
                 }),
                 option: (base, state) => ({
                     ...base,
@@ -40,6 +43,10 @@ export default function SelectCategory({id, renderCategories, handleSelectChange
                         backgroundColor: state.isSelected ? 'rgba(253, 70, 70, 0.47)' : 'rgba(255, 168, 168, 0.47)',
                     },
                     cursor: 'pointer',
+                }),
+                indicatorsContainer: (base) => ({
+                    ...base,
+                    height: height || base.height,
                 }),
             }}
             components={{ SingleValue }}

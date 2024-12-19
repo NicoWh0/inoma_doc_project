@@ -28,6 +28,49 @@
     margin: 0;
 }
 
+.my-docs-search {
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 70%;
+    min-width: 300px;
+    margin-bottom: 0.5rem;
+}
+
+.my-docs-search-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    width: 50%;
+    height: 60%;
+    border: 1px solid #bebebe;
+    border-radius: 5px;
+    background-color: #ffffff;
+    margin-right: 0.3rem;
+}
+
+.my-docs-search-input-container.focused {
+    border-color: rgba(255, 93, 93, 0.47);
+    box-shadow: 0 0 2px 2px rgba(255, 69, 69, 0.25);
+}
+
+.my-docs-search-input-container .my-docs-search-input {
+    width: 90%;
+    height: 100%;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5em;
+    font-size: 1em;
+}
+
+.my-docs-search-input-container .my-docs-search-input::placeholder {
+    font-family: var(--font-family);
+}
+
+.my-docs-search-input-container .my-docs-search-input:focus {
+    outline: none;
+}
+
 .my-docs-content {
     display: flex;
     flex-direction: column;
@@ -48,9 +91,9 @@
 
 .my-docs-list .my-docs-list-item {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 100%;
     background-color: #ffffff;
     border-radius: 5px;
@@ -58,31 +101,62 @@
     padding: 1em;
     margin: 0.5em;
     text-align: center;
-    max-height: 200px;
     transition: all 0.5s ease;
     position: relative;
 }
 
-.my-docs-list-item .my-docs-list-item-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    text-align: start;
-    width: 20%;
-    max-height: 190px;
-    position: relative;
+.my-docs-list-item .my-docs-item-header {
+    border-bottom: 1px solid #bebebe;
+    height: 10%;
 }
 
-.my-docs-list-item.expanded {
+.my-docs-list-item .my-docs-item-header, .my-docs-list-item .my-docs-list-item-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.my-docs-list-item .my-docs-list-item-content {
+    margin-top: 0.5em;
+    max-height: 100px;
+}
+
+.my-docs-list-item .my-docs-list-item-content.expanded {
     max-height: fit-content;
 }
 
-.my-docs-list-item.expanded .my-docs-list-item-section {
-    max-height: 100%;
+.my-docs-item-header .my-docs-item-header-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 20%;
 }
 
-.my-docs-list-item.expanded .my-docs-list-item-section.overflowing::before {
+.my-docs-item-header-section p {
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.my-docs-list-item .my-docs-list-item-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 20%;
+    position: relative;
+}
+
+.my-docs-list-item-section p {
+    font-size: 1em;
+}
+
+.my-docs-list-item-section p.description {
+    width: 100%;
+    font-size: 0.9em;
+}
+
+.my-docs-list-item-content.expanded .my-docs-list-item-section.overflowing::before {
     display: none;
 }
 
@@ -93,7 +167,7 @@
     position:absolute;
     left:0;
     top:0;
-    background:linear-gradient(transparent 150px, white);
+    background:linear-gradient(transparent 60px, white);
 }
 
 .my-docs-list-item-section .description {
@@ -113,8 +187,8 @@
     cursor: pointer;
     font-size: 1em;
     font-weight: 500;
-    background-color : #ff4444;
-    color: #ffffff;
+    background-color : #ffffff;
+    color: var(--color-red);
     margin-top: 0.2rem;
     margin-left: 0.5rem;
     height: -moz-min-content;
@@ -127,8 +201,15 @@
 }
 
 .my-docs-download-button:hover {
-    color: var(--color-red);
-    background-color: #ffffff;
+    color: #ffffff;
+    background-color: var(--color-red);
+}
+
+.my-docs-download-button:active {
+    transition: none;
+    background-color: #b32323;
+    color: #bebebe;
+    box-shadow: 1px 1px 0.5px 0.8px #0000001a inset;
 }
 
 .my-docs-show-more {
@@ -147,10 +228,10 @@
     border: 1px solid #797979;
     border-radius: 10px;
     cursor: pointer;
-    font-size: 1em;
+    font-size: 0.8em;
     font-weight: 500;
     background-color : #ffffff;
-    color: #000000;
+    color: #414141;
     margin-top: 0.2rem;
     margin-left: 0.5rem;
     height: min-content;
@@ -162,7 +243,20 @@
 }
 
 .my-docs-show-more-button:hover {
-    color: var(--color-red);
-    background-color: #ffffff;
+    color: #000000;
+}
+
+.my-docs-list-item-last-modified {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin-left: 0.4rem;
+    margin-bottom: 0.4rem;
+}
+
+.my-docs-list-item-last-modified p {
+    color: #585858;
+    font-size: 0.73em;
+    margin: 0;
 }
 

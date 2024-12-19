@@ -76,6 +76,14 @@ Route::post('/documentation',
     [DocumentationController::class, 'upload']
 )->middleware(['auth:sanctum', 'auth.admin']);
 
+Route::get('/documentation/personal',
+    [DocumentationController::class, 'getPersonalDocuments']
+)->middleware('auth:sanctum');
+
+Route::get('/documentation/download/{id}',
+    [DocumentationController::class, 'download']
+)->middleware('auth:sanctum');
+
 //Per il client-side routing
 Route::get('/{any}', function () {
     Log::info('Client-side routing for route: ' . request()->path());

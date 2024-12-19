@@ -41,4 +41,9 @@ class Document extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function getDeletedAtColumn()
+    {
+        return 'archived_at';
+    }
 }
