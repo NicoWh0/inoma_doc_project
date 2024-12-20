@@ -278,3 +278,104 @@
     background-color: #bebebe;
     cursor: not-allowed;
 }
+
+/* Doc Admin Management */
+
+.doc-admin-management {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.doc-admin-management-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    padding: 0.5em 0;
+    margin-bottom: 1.5rem;
+}
+
+.doc-admin-management-documents-grid {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: repeat(6, 1fr);
+    border-top: 1px solid #bebebe;
+    border-right: 1px solid #bebebe;
+    width: 95%;
+    background-color: #ffffff;
+}
+
+.doc-admin-management-documents-grid > p {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-left: 1px solid #bebebe;
+    border-bottom: 1px solid #bebebe;
+    min-height: 60px;
+    margin: 0;
+    padding: 0.5em;
+    overflow: hidden;
+}
+
+.doc-admin-management-documents-grid > p.description {
+    font-size: 0.9em;
+    max-height: 70px;
+}
+
+.doc-admin-management-documents-grid > p.description.overflowing {
+    align-items: start;
+}
+
+.doc-admin-management-documents-grid > p.description.overflowing::before {
+    content:'';
+    width:100%;
+    height:100%;
+    position:absolute;
+    left:0;
+    top:0;
+    background:linear-gradient(transparent 50px, white);
+}
+
+.doc-admin-management-documents-grid > p.date {
+    font-size: 0.85em;
+}
+
+.doc-admin-management-documents-grid > .actions-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border-left: 1px solid #bebebe;
+    border-bottom: 1px solid #bebebe;
+    margin: 0;
+    padding: 0.5em;
+}
+
+.doc-admin-management-documents-grid .edit-button {
+    font-family: var(--font-family);
+    font-size: 1.05em;
+    font-weight: 500;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    background-color: inherit;
+    transition: color 0.2s;
+}
+
+.doc-admin-management-documents-grid a {
+    font-size: 1.05em;
+    font-weight: 500;
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.2s;
+}
+
+.doc-admin-management-documents-grid .edit-button:hover,
+.doc-admin-management-documents-grid a:hover {
+    color: var(--color-red);
+}

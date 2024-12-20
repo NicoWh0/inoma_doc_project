@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { instance as axios } from '../../components/axios/AxiosInterceptor';
-import DocUpload from '../../components/documentation/DocUpload';
-import DocCategories from '../../components/documentation/DocCategories';
-import DocSearch from '../../components/documentation/DocSearch';
+import DocUpload from './DocUpload';
+import DocCategories from './DocCategories';
+import DocAdminManagement from './DocAdminManagement';
 
 export default function DocManager() {
-    const [subPage, setSubPage] = useState('upload');
+    const [subPage, setSubPage] = useState('management');
     const [categories, setCategories] = useState([]);
 
     const renderSubPage = () => {
@@ -14,8 +14,8 @@ export default function DocManager() {
                 return <DocUpload categories={categories}/>;
             case 'categories':
                 return <DocCategories categories={categories}/>;
-            case 'search':
-                return <DocSearch />;
+            case 'management':
+                return <DocAdminManagement />;
             default:
                 return <DocUpload categories={categories}/>;
         }
@@ -54,8 +54,8 @@ export default function DocManager() {
                 </div>
                 <div className="doc-manager-header-link doc-manager-search-link">
                     <button
-                        onClick={() => setSubPage('search')}
-                        className={subPage === 'search' ? 'selected' : ''}
+                        onClick={() => setSubPage('management')}
+                        className={subPage === 'management' ? 'selected' : ''}
                     >
                             <span className="color-red">Gestisci</span> Documenti
                     </button>

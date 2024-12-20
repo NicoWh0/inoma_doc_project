@@ -8,7 +8,7 @@ import clsx from "clsx";
 export default function Header({ isHomePage }) {
     const [isAtTop, setIsAtTop] = React.useState(true);
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-    const { setUser, isAuthenticated, done } = useContext(AuthContext);
+    const { user, setUser, isAuthenticated, done } = useContext(AuthContext);
 
     const toggleMenu = () => {
         console.log("toggleMenu");
@@ -37,6 +37,30 @@ export default function Header({ isHomePage }) {
         };
     });
 
+    const renderAuthLinks = () => {
+        if(user.type === 0) {
+            return (
+                <>
+                    <li className="nav-item">
+                        <Link to="/documentation/my-docs" className="nav-link">Documenti</Link>
+                    </li>
+                </>
+            );
+        }
+        else {
+            return (
+                <>
+                    <li className="nav-item">
+                        <Link to="/documentation/my-docs" className="nav-link">Documenti</Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to="/documentation/management" className="nav-link">Gestione</Link>
+                    </li>
+                </>
+            );
+        }
+    }
+
     const getNavLinks = () => {
         if(!done) return null;
         else if (isAuthenticated) {
@@ -46,11 +70,9 @@ export default function Header({ isHomePage }) {
                         <Link to="/home" className="nav-link">Home</Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="/documentation" className="nav-link">Documentazione</Link>
-                    </li>
-                    <li className="nav-item">
                         <Link to="/profile" className="nav-link">Profilo</Link>
                     </li>
+                    {renderAuthLinks()}
                     <li className="nav-item">
                         <button onClick={handleLogout} className="nav-button">Logout</button>
                     </li>

@@ -79,11 +79,27 @@ class DocumentationController extends Controller
         return response()->download($filePath, $document->title);
     }
 
-
     public function getPersonalDocuments(Request $request)
     {
-        $filter = $request->query('category');
+        return $this->getDocuments($request, function($query, $request) {
+            return $query->whereHas('users', function($query) use ($request) {
+                $query->where('users.id', $request->user()->id);
+            })->orderByDesc('updated_at');
+        });
+    }
+
+    public function getManagementDocuments(Request $request)
+    {
+        return $this->getDocuments($request, function($query, $request) {
+            return $query->where('uploader', $request->user()->id)->orderByDesc('updated_at');
+        });
+    }
+
+    private function getDocuments(Request $request, $getDocFunction) {
+        $category = $request->query('category');
         $search = $request->query('search');
+        $page = $request->query('page') ?? 1;
+        $perPage = $request->query('perPage') ?? 10;
 
         $categoryValidator = Validator::make($request->all(), [
             'category' => 'nullable|numeric|exists:categories,id',
@@ -96,16 +112,17 @@ class DocumentationController extends Controller
 
         $query = Document::query();
 
-        if($filter && $categoryValidator->passes()) {
-            $query->where('category_id', $filter);
+        if($category && $categoryValidator->passes()) {
+            $query->where('category_id', $category);
         }
         if($search && $searchValidator->passes()) {
-            $query->where('title', 'like', "%$search%")->orWhere('description', 'like', "%$search%");
+            $query->where(function ($subquery) use ($search) {
+                $subquery->where('title', 'like', "%$search%")->orWhere('description', 'like', "%$search%");
+            });
         }
 
-        $documents = $query->whereHas('users', function($query) use ($request) {
-            $query->where('users.id', $request->user()->id);
-        })->orderByDesc('updated_at')->limit(10)->get();
+        $documents = $getDocFunction($query, $request)->paginate($perPage, ['*'], 'page', $page);;
+
         if($documents->isEmpty()) {
             return response()->json(['message' => 'No documents found'], 404);
         }

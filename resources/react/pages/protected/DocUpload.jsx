@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { instance as axios } from '../axios/AxiosInterceptor';
-import SelectCategory from "./SelectCategory";
-import SelectUserSearch from "./SelectUserSearch";
-import TinyLoader from "../general/TinyLoader";
-import PopupSuccess from "../general/PopupSuccess";
-
+import { instance as axios } from '../../components/axios/AxiosInterceptor';
+import SelectCategory from "../../components/documentation/SelectCategory";
+import SelectUserSearch from "../../components/documentation/SelectUserSearch";
+import TinyLoader from "../../components/general/TinyLoader";
+import PopupSuccess from "../../components/general/PopupSuccess";
+import PopupFailure from "../../components/general/PopupFailure";
 import _ from 'lodash';
-import PopupFailure from "../general/PopupFailure";
 
 export default function DocUpload({categories}) {
     const [userOptions, setUserOptions] = useState([]);
@@ -25,7 +24,7 @@ export default function DocUpload({categories}) {
 
     const fetchUsers = useCallback(_.debounce((searchTerm) => {
         setSearching({inProgress: true, success: false});
-        axios.get('/user/standard', {params: {search: searchTerm}})
+        axios.get('/documentation/upload/users', {params: {search: searchTerm}})
             .then(response => {
                 console.log(response.config.url);
                 console.log('Users:', response.data);

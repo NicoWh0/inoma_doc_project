@@ -22,31 +22,29 @@ class UserController extends Controller
         return response()->json(['message' => 'Username changed successfully'], 200);
     }
 
-    public function getAvailableStandardUsers(Request $request) {
+    public function getAvailableUsersForDocs(Request $request) {
         $search = $request->query('search');
 
         if($search && strlen($search) > 320) {
             return response()->json(['message' => 'Search query too long'], 422);
         }
 
-        $users = [];
+        $query = User::where('type', '<=', 1)
+            ->where('user_status', 1)
+            ->where('email_verified_at', '!=', null);
+            //->where('id', '!=', $request->user()->id); //Uncomment this line to exclude the current user from the search
 
-        if(!$search) {
-            $users = User::where('type', 0)->where('user_status', 1)
-                ->orderByDesc('created_at')
-                ->limit(20)
-                ->select('id', 'username', 'email')->get();
+        if ($search) {
+            $query->where(function($subquery) use ($search) {
+                $subquery->where('username', 'like', "%$search%")
+                    ->orWhere('email', 'like', "%$search%");
+            });
         }
-        else {
-            $users = User::where('type', 0)->where('user_status', 1)->where(
-                function($query) use ($search) {
-                    $query->where('username', 'like', "%$search%")
-                        ->orWhere('email', 'like', "%$search%");
-                }
-            )
-            ->orderByDesc('created_at')->limit(20)
-            ->select('id', 'username', 'email')->get();
-        }
+
+        $users = $query->orderByDesc('created_at')
+            ->limit(20)
+            ->select('id', 'username', 'email')
+            ->get();
 
         return count($users) === 0 ? response()->json(['message' => 'No users found'], 404) : response()->json($users, 200);
     }

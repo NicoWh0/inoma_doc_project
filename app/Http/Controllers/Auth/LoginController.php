@@ -85,7 +85,7 @@ class LoginController extends Controller
 
         $google2fa = new Google2FA();
         $decryptedSecret = Crypt::decrypt($user->google2fa_secret);
-        $valid = $google2fa->verifyKey($decryptedSecret, $request->input('code'));
+        $valid = $google2fa->verifyKey($decryptedSecret, $request->input('code'), 2);
         if ($valid) {
             Auth::login($user);
             $request->session()->regenerate();
@@ -142,7 +142,7 @@ class LoginController extends Controller
 
         $valid = $google2fa->verifyKey(
             Crypt::decrypt($user->google2fa_secret),
-            $request->input('code')
+            $request->input('code'), 2
         );
 
         if($valid) {
@@ -164,7 +164,7 @@ class LoginController extends Controller
 
         $valid = $google2fa->verifyKey(
             Crypt::decrypt($user->google2fa_secret),
-            $request->input('code')
+            $request->input('code'), 2
         );
         if($valid) {
             $user->google2fa_secret = null;

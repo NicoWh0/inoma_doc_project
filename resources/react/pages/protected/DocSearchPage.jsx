@@ -1,11 +1,10 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
-import MyDocElement from '../../components/documentation/MyDocElement';
 import { instance as axios } from '../../components/axios/AxiosInterceptor';
 import SelectCategory from '../../components/documentation/SelectCategory';
 import _ from 'lodash';
 import Loader from '../../components/general/Loader';
 
-export default function MyDocs() {
+export default function DocSearchPage({titlePage, subtitlePage, renderDocuments}) {
 
     const [documents, setDocuments] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -167,39 +166,19 @@ export default function MyDocs() {
         return categoriesComponents;
     }
 
-
-    const renderDocuments = () => {
-        if(documents.length === 0 && searching) return <Loader />;
-        else if(documents.length === 0) return <p>Nessun documento trovato</p>;
-        return documents.map((doc, index) => {
-            return (
-                <MyDocElement
-                    key={index}
-                    id={doc.id}
-                    path={doc.path}
-                    title={doc.title}
-                    category={doc.category}
-                    description={doc.description}
-                    lastModified={doc.lastModified}
-                />
-            );
-        });
-    }
-
-
     return (
-        <div className="my-docs-page">
-            <div className="my-docs-header">
-                <div className="my-docs-title">
-                    <h1>I Miei <span className="color-red">Documenti</span></h1>
-                    <p>Benvenuto nella pagina relativa ai tuoi documenti</p>
+        <div className="docs-page">
+            <div className="docs-header">
+                <div className="docs-title">
+                    {titlePage}
+                    {subtitlePage ?? ''}
                 </div>
-                <div className="my-docs-search">
-                    <div className={`my-docs-search-input-container ${isSearchFocused ? 'focused' : ''}`}>
+                <div className="docs-search">
+                    <div className={`docs-search-input-container ${isSearchFocused ? 'focused' : ''}`}>
                         <input
                             onFocus={() => setIsSearchFocused(true)}
                             onBlur={() => setIsSearchFocused(false)}
-                            className="my-docs-search-input"
+                            className="docs-search-input"
                             type="text"
                             name="search"
                             placeholder="Cerca documenti"
@@ -215,12 +194,10 @@ export default function MyDocs() {
                     />
                 </div>
             </div>
-            <div className="my-docs-content">
-                <ul className="my-docs-list">
-                    {renderDocuments()}
-                    {searching && <Loader />}
-                    <div ref={loadMoreRef} style={{ height: '20px' }}></div>
-                </ul>
+            <div className="docs-content">
+                {renderDocuments()}
+                {searching && <Loader />}
+                <div ref={loadMoreRef} style={{ height: '20px' }}></div>
             </div>
         </div>
     );

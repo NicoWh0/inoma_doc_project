@@ -67,13 +67,17 @@ Route::get('/user/me', function (Request $request) {
     return $request->user()->only('type', 'username', 'email', 'email_verified', 'google2fa_enabled');
 })->middleware('auth:sanctum');
 
-Route::get('/user/standard',
-    [UserController::class, 'getAvailableStandardUsers']
+Route::get('/documentation/upload/users',
+    [UserController::class, 'getAvailableUsersForDocs']
 )->middleware(['auth:sanctum', 'auth.admin']);
 
 //Documentation sharing routes
 Route::post('/documentation',
     [DocumentationController::class, 'upload']
+)->middleware(['auth:sanctum', 'auth.admin']);
+
+Route::get('/documentation/management/docs',
+    [DocumentationController::class, 'getManagementDocuments']
 )->middleware(['auth:sanctum', 'auth.admin']);
 
 Route::get('/documentation/personal',

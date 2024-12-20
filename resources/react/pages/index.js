@@ -9,4 +9,5 @@ export { default as Profile } from './protected/Profile';
 export { default as Home } from './general/Home';
 export { default as NotFound } from './general/NotFound';
 export { default as Page2FA } from './auth/Page2FA';
-export { default as Documentation } from './protected/Documentation';
+export { default as DocManager } from './protected/DocManager';
+export { default as MyDocs } from './protected/MyDocs';
