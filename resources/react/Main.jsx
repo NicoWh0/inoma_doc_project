@@ -21,6 +21,7 @@ import ScrollToTop from "./components/utils/ScrollToTop";
 import ProtectedRoute from "./components/navigation/ProtectedRoute";
 import EmailVerifiedRoute from "./components/navigation/EmailVerifiedRoute";
 import AdminRoute from "./components/navigation/AdminRoute";
+import DocModify from "./pages/protected/DocModify";
 
 
 
@@ -58,6 +59,18 @@ export default function Main() {
                                 <EmailVerifiedRoute>
                                     <AdminRoute>
                                         <DocManager/>
+                                    </AdminRoute>
+                                </EmailVerifiedRoute>
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/documentation/management/:id/edit"
+                        element={
+                            <ProtectedRoute>
+                                <EmailVerifiedRoute>
+                                    <AdminRoute>
+                                        <DocModify/>
                                     </AdminRoute>
                                 </EmailVerifiedRoute>
                             </ProtectedRoute>

@@ -72,15 +72,24 @@ Route::get('/documentation/upload/users',
 )->middleware(['auth:sanctum', 'auth.admin']);
 
 //Documentation sharing routes
-Route::post('/documentation',
+
+Route::get('/documentation/docs/{id}',
+    [DocumentationController::class, 'getDocument']
+)->middleware('auth:sanctum');
+
+Route::post('/documentation/docs',
     [DocumentationController::class, 'upload']
+)->middleware(['auth:sanctum', 'auth.admin']);
+
+Route::put('/documentation/docs/{id}',
+    [DocumentationController::class, 'updateDocument']
 )->middleware(['auth:sanctum', 'auth.admin']);
 
 Route::get('/documentation/management/docs',
     [DocumentationController::class, 'getManagementDocuments']
 )->middleware(['auth:sanctum', 'auth.admin']);
 
-Route::get('/documentation/personal',
+Route::get('/documentation/personal/docs',
     [DocumentationController::class, 'getPersonalDocuments']
 )->middleware('auth:sanctum');
 

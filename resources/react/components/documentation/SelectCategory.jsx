@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Select, { components } from 'react-select';
 
 const SingleValue = props => (
@@ -7,7 +7,7 @@ const SingleValue = props => (
     </components.SingleValue>
 );
 
-export default function SelectCategory({id, renderCategories, handleSelectChange, width, height}) {
+export default function SelectCategory({id, renderCategories, handleSelectChange, width, height, defaultValue}) {
     return (
         <Select
             inputId={id}
@@ -55,6 +55,7 @@ export default function SelectCategory({id, renderCategories, handleSelectChange
             options={renderCategories()}
             onChange={handleSelectChange}
             isSearchable={false}
+            defaultValue={defaultValue ? defaultValue : 'wrong'}
         />
     );
 }

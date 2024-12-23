@@ -1,11 +1,12 @@
-.my-docs-page {
+.docs-page {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
 
-.my-docs-header {
+.docs-header {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,18 +18,18 @@
     text-align: center;
 }
 
-.my-docs-title {
+.docs-title {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 0;
 }
 
-.my-docs-title h1 {
+.docs-title h1 {
     margin: 0;
 }
 
-.my-docs-search {
+.docs-search {
     display:flex;
     align-items: center;
     justify-content: space-between;
@@ -37,7 +38,7 @@
     margin-bottom: 0.5rem;
 }
 
-.my-docs-search-input-container {
+.docs-search-input-container {
     display: flex;
     align-items: center;
     justify-content: start;
@@ -49,12 +50,12 @@
     margin-right: 0.3rem;
 }
 
-.my-docs-search-input-container.focused {
+.docs-search-input-container.focused {
     border-color: rgba(255, 93, 93, 0.47);
     box-shadow: 0 0 2px 2px rgba(255, 69, 69, 0.25);
 }
 
-.my-docs-search-input-container .my-docs-search-input {
+.docs-search-input-container .docs-search-input {
     width: 90%;
     height: 100%;
     border: none;
@@ -63,21 +64,26 @@
     font-size: 1em;
 }
 
-.my-docs-search-input-container .my-docs-search-input::placeholder {
+.docs-search-input-container .docs-search-input::-moz-placeholder {
     font-family: var(--font-family);
 }
 
-.my-docs-search-input-container .my-docs-search-input:focus {
+.docs-search-input-container .docs-search-input::placeholder {
+    font-family: var(--font-family);
+}
+
+.docs-search-input-container .docs-search-input:focus {
     outline: none;
 }
 
-.my-docs-content {
+.docs-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 80%;
 }
+
 .my-docs-list {
     display: flex;
     flex-direction: column;
@@ -122,6 +128,7 @@
 }
 
 .my-docs-list-item .my-docs-list-item-content.expanded {
+    max-height: -moz-fit-content;
     max-height: fit-content;
 }
 
@@ -234,6 +241,7 @@
     color: #414141;
     margin-top: 0.2rem;
     margin-left: 0.5rem;
+    height: -moz-min-content;
     height: min-content;
     font-style: italic;
     padding: 0.2rem 0.65rem 0.2rem 0.5rem;
@@ -259,4 +267,5 @@
     font-size: 0.73em;
     margin: 0;
 }
+
 

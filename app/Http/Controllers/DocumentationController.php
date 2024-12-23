@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Document;
+use App\Models\DocumentUser;
 use DB;
 use Illuminate\Http\Request;
 use Log;
@@ -79,11 +80,26 @@ class DocumentationController extends Controller
         return response()->download($filePath, $document->title);
     }
 
+    public function getDocument(Request $request, $id)
+    {
+        $document = Document::with('users')->find($id);
+
+        if(!$document) {
+            return response()->json(['message' => 'Document not found'], 404);
+        }
+
+        if(!$document->uploader === $request->user()->id) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        return response()->json($document, 200);
+    }
+
     public function getPersonalDocuments(Request $request)
     {
         return $this->getDocuments($request, function($query, $request) {
             return $query->whereHas('users', function($query) use ($request) {
-                $query->where('users.id', $request->user()->id);
+                $query->where('users.id', $request->user()->id)->whereNull('document_user.deleted_at');
             })->orderByDesc('updated_at');
         });
     }
@@ -127,6 +143,49 @@ class DocumentationController extends Controller
             return response()->json(['message' => 'No documents found'], 404);
         }
         return response()->json($documents, 200);
+    }
+
+    public function updateDocument(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|min:4|max:32',
+            'description' => 'required|string|min:4|max:512',
+            'category' => 'required|numeric|exists:categories,id',
+            'users' => 'required|array',
+            'users.*' => 'required|numeric|exists:users,id',
+        ]);
+
+        $document = Document::find($id);
+
+        if(!$document) {
+            return response()->json(['message' => 'Document not found'], 404);
+        }
+
+        if(!$document->uploader === $request->user()->id) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        DB::beginTransaction();
+
+        try {
+            $document->title = $request->input('title');
+            $document->description = $request->input('description');
+            $document->category_id = $request->input('category');
+            // Soft delete existing associations
+            DocumentUser::where('document_id', $document->id)->delete();
+
+            // Attach new associations
+            $document->users()->sync($request->input('users'));
+
+            $document->save();
+            DB::commit();
+            return response()->json(['message' => 'Document updated successfully'], 200);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error updating document: ' . $e->getMessage());
+            return response()->json(['message' => 'Error updating document'], 500);
+        }
     }
 
 }

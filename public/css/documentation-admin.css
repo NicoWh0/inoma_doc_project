@@ -99,6 +99,10 @@
     margin-top: 1em;
 }
 
+.doc-upload-form .form-group.hidden {
+    display: none;
+}
+
 .doc-upload-form .form-group label {
     font-size: 1.1em;
     font-weight: 500;
@@ -285,21 +289,12 @@
 
 /* Doc Admin Management */
 
-.doc-admin-management {
+.doc-admin-management-documents-grid-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
-}
-
-.doc-admin-management-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 50%;
-    padding: 0.5em 0;
-    margin-bottom: 1.5rem;
+    margin-top: 1.3rem;
 }
 
 .doc-admin-management-documents-grid {
@@ -324,6 +319,10 @@
     margin: 0;
     padding: 0.5em;
     overflow: hidden;
+}
+
+.doc-admin-management-documents-grid > p.title {
+    font-weight: 500;
 }
 
 .doc-admin-management-documents-grid > p.description {

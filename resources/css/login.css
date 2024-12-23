@@ -38,11 +38,14 @@
 .login-form .form-group input {
     height: 1.5rem;
     width: 50%;
+    border: 1px solid #6c757d;
+    border-radius: 3px;
 }
 
 .login-form .form-group input:focus {
     outline: none;
-    box-shadow: 0 0 1.2px 1.5px #fc4848;
+    border-color: rgba(255, 93, 93, 0.47);
+    box-shadow: 0 0 2px 2px rgba(255, 69, 69, 0.25);
 }
 
 .login-form .form-group input::-moz-placeholder {

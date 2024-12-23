@@ -8,7 +8,7 @@ const MultiValue = props => (
     </components.MultiValue>
 );
 
-export default function SelectUserSearch({id, renderUsers, handleSelectChange}) {
+export default function SelectUserSearch({id, renderUsers, handleSelectChange, defaultValue}) {
     return (
         <Select
             inputId={id}
@@ -50,6 +50,7 @@ export default function SelectUserSearch({id, renderUsers, handleSelectChange}) 
             onChange={handleSelectChange}
             isSearchable={false}
             isMulti
+            defaultValue={defaultValue}
         />
     );
 }

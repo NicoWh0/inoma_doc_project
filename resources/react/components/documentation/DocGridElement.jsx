@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-export default function DocGridElement({ title, category, description, uploadedAt, lastModified }) {
+export default function DocGridElement({ id, title, category, description, uploadedAt, lastModified }) {
     const [isDescOverflowing, setIsDescOverflowing] = useState(false);
     const descriptionRef = useRef(null);
 
@@ -24,6 +24,7 @@ export default function DocGridElement({ title, category, description, uploadedA
         return () => {
             window.removeEventListener('resize', handleResize);
         };
+
     }, []);
 
 
@@ -35,8 +36,8 @@ export default function DocGridElement({ title, category, description, uploadedA
             <p className="date">{uploadedAt}</p>
             <p className="date">{lastModified}</p>
             <div className="actions-container">
-                <Link className="view-link">Visualizza</Link>
-                <button className="edit-button">Modifica</button>
+                <Link to={`${id}/view`}>Visualizza</Link>
+                <Link to={`${id}/edit`}>Modifica</Link>
             </div>
         </>
     );

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { AuthContext } from '../../contexts/AuthContext';
 import { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,7 +9,7 @@ const instance = axios.create({
     timeout: 10000,
     headers: {
         //'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-        'Content-Type': 'application/json;multipart/form-data',
+        'Content-Type': 'application/json',
         //'Access-Control-Allow-Origin': '*',
     },
     withCredentials: true,
@@ -32,6 +33,7 @@ const setCSRFToken = () => {
 
 const AxiosInterceptor = ({ children }) => {
     const navigate = useNavigate();
+    const { setUser } = useContext(AuthContext);
     const [isSetup, setIsSetup] = useState(false);
     useEffect(() => {
         const configUse = instance.interceptors.request.use(onRequest);
@@ -78,6 +80,7 @@ const AxiosInterceptor = ({ children }) => {
                     case error.config.url === '/login/2fa' && error.response.status === 401: //To avoid navigate to login page
                         break;
                     case error.response?.status === 401:
+                        setUser(null);
                         navigate('/login');
                         break;
                     //More error handling can be added here

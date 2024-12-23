@@ -69,6 +69,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function documents()
     {
-        return $this->belongsToMany(Document::class);
+        return $this->belongsToMany(Document::class)
+                    ->using(DocumentUser::class)
+                    ->withTimestamps()
+                    ->withPivot('deleted_at');
     }
 }

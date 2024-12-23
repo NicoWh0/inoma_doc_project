@@ -4,7 +4,7 @@ import SelectCategory from '../../components/documentation/SelectCategory';
 import _ from 'lodash';
 import Loader from '../../components/general/Loader';
 
-export default function DocSearchPage({titlePage, subtitlePage, renderDocuments}) {
+export default function DocSearchPage({titlePage, subtitlePage, renderDocuments, documentsContainerClass, endpoint}) {
 
     const [documents, setDocuments] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -23,7 +23,7 @@ export default function DocSearchPage({titlePage, subtitlePage, renderDocuments}
             const categories = await axios.get('api/categories');
             setCategories(categories.data);
             try {
-                const docs = await axios.get('/documentation/personal');
+                const docs = await axios.get(endpoint);
                 console.log('First docs:', docs);
                 handleDocumentsResponse(docs, categories.data);
             }
@@ -74,7 +74,7 @@ export default function DocSearchPage({titlePage, subtitlePage, renderDocuments}
     const fetchDocuments = useCallback(_.debounce((searchTerm, categoryType, categories) => {
         setDocuments([]);
         setSearching(true);
-        axios.get('/documentation/personal', {params: {search: searchTerm, category: categoryType}})
+        axios.get(endpoint, {params: {search: searchTerm, category: categoryType}})
             .then(response => {
                 console.log(response.config.url);
                 console.log('Documents:', response.data);
@@ -90,7 +90,7 @@ export default function DocSearchPage({titlePage, subtitlePage, renderDocuments}
     }, 1000), []);
 
     const fetchMoreDocuments = (searchTerm, categoryType, categories, page) => {
-        axios.get('/documentation/personal', {params: {search: searchTerm, category: categoryType, page: page}})
+        axios.get(endpoint, {params: {search: searchTerm, category: categoryType, page: page}})
             .then(response => {
                 console.log(response.config.url);
                 handleDocumentsResponse(response, categories, true);
@@ -113,7 +113,8 @@ export default function DocSearchPage({titlePage, subtitlePage, renderDocuments}
                 path: doc.file_path,
                 title: doc.title,
                 category: categories[doc.category_id],
-                description: doc.description,
+                description: doc.description ?? <em>Nessuna descrizione</em>,
+                uploadedAt: new Date(doc.created_at).toLocaleString("it-IT", options),
                 lastModified: new Date(doc.updated_at).toLocaleString("it-IT", options)
             });
         });
@@ -195,7 +196,9 @@ export default function DocSearchPage({titlePage, subtitlePage, renderDocuments}
                 </div>
             </div>
             <div className="docs-content">
-                {renderDocuments()}
+                <div className={documentsContainerClass}>
+                    {renderDocuments(documents, searching)}
+                </div>
                 {searching && <Loader />}
                 <div ref={loadMoreRef} style={{ height: '20px' }}></div>
             </div>

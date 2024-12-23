@@ -38,8 +38,8 @@
 .login-form .form-group input {
     height: 1.5rem;
     width: 50%;
-    border: 1px solid #b9b8b8;
-    border-radius: 5px;
+    border: 1px solid #6c757d;
+    border-radius: 3px;
 }
 
 .login-form .form-group input:focus {

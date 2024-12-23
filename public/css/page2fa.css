@@ -45,8 +45,9 @@
 }
 
 .form-2fa input {
-    font-family: var(--font-family);
-    border: 1px solid #797979;
+    border: 1px solid #bebebe;
+    padding: 0.25rem 0;
+    padding-left: 0.3rem;
     border-radius: 5px;
 }
 

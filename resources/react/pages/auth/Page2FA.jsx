@@ -26,8 +26,8 @@ export default function Page2FA() {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        console.log('2FA code submitted:', code);
         if(code.length < 6) return;
+        console.log('2FA code submitted:', code);
         const codeToSend = code;
         setCode('');
         switch(searchParams.get('context')) {
