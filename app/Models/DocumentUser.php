@@ -13,5 +13,7 @@ class DocumentUser extends Pivot
 
     protected $table = 'document_user';
 
+    protected $fillable = ['document_id', 'user_id'];
+
     protected $dates = ['deleted_at'];
 }

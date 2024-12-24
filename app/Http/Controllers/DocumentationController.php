@@ -175,7 +175,13 @@ class DocumentationController extends Controller
             DocumentUser::where('document_id', $document->id)->delete();
 
             // Attach new associations
-            $document->users()->sync($request->input('users'));
+            $newUserIds = $request->input('users');
+            foreach ($newUserIds as $userId) {
+                DocumentUser::create([
+                    'document_id' => $document->id,
+                    'user_id' => $userId
+                ]);
+            }
 
             $document->save();
             DB::commit();

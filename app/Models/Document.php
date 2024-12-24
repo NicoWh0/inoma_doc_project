@@ -9,6 +9,8 @@ class Document extends Model
 {
     use SoftDeletes;
 
+    protected $dates = ['deleted_at'];
+
     protected $fillable = [
         'uploader',
         'title',
@@ -42,7 +44,8 @@ class Document extends Model
         return $this->belongsToMany(User::class)
                     ->using(DocumentUser::class)
                     ->withTimestamps()
-                    ->withPivot('deleted_at');
+                    ->withPivot('deleted_at')
+                    ->wherePivot('deleted_at', null);
     }
 
     public function getDeletedAtColumn()
