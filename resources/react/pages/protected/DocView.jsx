@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { data, Link, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { instance as axios } from '../../components/axios/AxiosInterceptor';
 import Loader from '../../components/general/Loader';
-import { last } from 'lodash';
 
 export default function DocView() {
     const params = useParams();
