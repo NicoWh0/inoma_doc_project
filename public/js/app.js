@@ -7040,6 +7040,13 @@ function DocModify() {
       category: formData.category,
       users: formData.users
     };
+    if (formData.users.length > 0 && formData.users.every(function (user) {
+      return !(0,lodash__WEBPACK_IMPORTED_MODULE_4__.isNumber)(user);
+    })) {
+      sanizitedForm.users = formData.users.map(function (user) {
+        return user.id;
+      });
+    }
     console.log("Sanizited: ", sanizitedForm);
     _components_axios_AxiosInterceptor__WEBPACK_IMPORTED_MODULE_1__.instance.put("/documentation/docs/".concat(params.id), sanizitedForm).then(function (response) {
       console.log('Document modify response:', response.data);

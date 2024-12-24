@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { instance as axios } from '../../components/axios/AxiosInterceptor';
 import PopupSuccess from "../../components/general/PopupSuccess";
 import PopupFailure from "../../components/general/PopupFailure";
-import _ from 'lodash';
+import _, { isNumber } from 'lodash';
 import DocForm from "../../components/documentation/DocForm";
 import Loader from "../../components/general/Loader";
 
@@ -37,6 +37,7 @@ export default function DocModify() {
         console.log('DocModify params:', params);
         axios.get(`/documentation/docs/${params.id}`).then(response => {
             console.log('Document data:', response.data);
+
             setDocData({
                 title: response.data.title,
                 description: response.data.description ?? '',
@@ -60,7 +61,11 @@ export default function DocModify() {
             category: formData.category,
             users: formData.users
         }
+        if(formData.users.length > 0 && formData.users.every(user => !isNumber(user))) {
+            sanizitedForm.users = formData.users.map(user => user.id);
+        }
         console.log("Sanizited: ", sanizitedForm);
+
         axios.put(`/documentation/docs/${params.id}`, sanizitedForm).then(response => {
             console.log('Document modify response:', response.data);
             setUploadState(1);

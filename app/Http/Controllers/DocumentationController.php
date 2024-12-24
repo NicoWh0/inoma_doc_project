@@ -168,24 +168,53 @@ class DocumentationController extends Controller
         DB::beginTransaction();
 
         try {
-            $document->title = $request->input('title');
-            $document->description = $request->input('description');
-            $document->category_id = $request->input('category');
-            // Soft delete existing associations
-            DocumentUser::where('document_id', $document->id)->delete();
-
-            // Attach new associations
+            $title = $request->input('title');
+            $description = $request->input('description');
+            $categoryId = $request->input('category');
             $newUserIds = $request->input('users');
-            foreach ($newUserIds as $userId) {
-                DocumentUser::create([
-                    'document_id' => $document->id,
-                    'user_id' => $userId
-                ]);
+
+            $isDirty = false;
+
+            if ($document->title !== $title) {
+                $document->title = $title;
+                $isDirty = true;
             }
 
-            $document->save();
+            if ($document->description !== $description) {
+                $document->description = $description;
+                $isDirty = true;
+            }
+
+            if ($document->category_id !== $categoryId) {
+                $document->category_id = $categoryId;
+                $isDirty = true;
+            }
+
+            $existingUserIds = $document->users->pluck('id')->toArray();
+            if (array_diff($newUserIds, $existingUserIds) || array_diff($existingUserIds, $newUserIds)) {
+                // Soft delete existing associations
+                DocumentUser::where('document_id', $document->id)->delete();
+
+                // Attach new associations
+                foreach ($newUserIds as $userId) {
+                    DocumentUser::create([
+                        'document_id' => $document->id,
+                        'user_id' => $userId
+                    ]);
+                }
+
+                $isDirty = true;
+            }
+
+            if ($isDirty) {
+                $document->touch();
+                $document->save();
+            }
+
             DB::commit();
-            return response()->json(['message' => 'Document updated successfully'], 200);
+            return $isDirty ?
+                response()->json(['message' => 'Document updated successfully'], 200) :
+                response()->json(['message' => 'No changes made'], 200);
 
         } catch (\Exception $e) {
             DB::rollBack();
