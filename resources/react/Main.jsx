@@ -15,13 +15,14 @@ import {
     Disable2FA,
     Page2FA,
     DocManager,
-    MyDocs
+    MyDocs,
+    DocModify,
+    DocView
 } from './pages';
 import ScrollToTop from "./components/utils/ScrollToTop";
 import ProtectedRoute from "./components/navigation/ProtectedRoute";
 import EmailVerifiedRoute from "./components/navigation/EmailVerifiedRoute";
 import AdminRoute from "./components/navigation/AdminRoute";
-import DocModify from "./pages/protected/DocModify";
 
 
 
@@ -71,6 +72,18 @@ export default function Main() {
                                 <EmailVerifiedRoute>
                                     <AdminRoute>
                                         <DocModify/>
+                                    </AdminRoute>
+                                </EmailVerifiedRoute>
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/documentation/management/:id/view"
+                        element={
+                            <ProtectedRoute>
+                                <EmailVerifiedRoute>
+                                    <AdminRoute>
+                                        <DocView/>
                                     </AdminRoute>
                                 </EmailVerifiedRoute>
                             </ProtectedRoute>

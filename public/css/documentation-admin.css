@@ -383,3 +383,66 @@
     color: var(--color-red);
 }
 
+.doc-view-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.doc-view-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    padding: 1.2rem;
+    margin-top: 1em;
+    background-color: #ffffff;
+    border: 1px solid #bebebe;
+    border-radius: 5px;
+    box-shadow: 0 0 3px 2px #00000041;
+}
+
+.doc-view-main-info, .doc-view-users, .doc-view-links, .doc-view-dates {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1em;
+    text-align: center;
+}
+
+.doc-view-users {
+    max-height: 200px;
+    margin-bottom: 1.5rem;
+}
+
+.doc-view-dates {
+    font-size: 0.9em;
+}
+
+.doc-view-dates p {
+    margin: 0;
+}
+
+.doc-view-links {
+    height: 10%;
+}
+
+.doc-view-links a {
+    font-family: var(--font-family);
+    font-size: 1.1em;
+    font-weight: 500;
+    text-decoration: none;
+    color: #6d6d6d;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.doc-view-links a:hover {
+    color: var(--color-red);
+}
+
