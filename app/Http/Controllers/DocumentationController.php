@@ -92,7 +92,12 @@ class DocumentationController extends Controller
             return response()->json(['message' => 'Unauthorized'], 403);
         }
 
-        return response()->json($document, 200);
+        $fileType = pathinfo($document->file_path, PATHINFO_EXTENSION);
+
+        return response()->json([
+            'document' => $document,
+            'file_type' => $fileType
+        ], 200);
     }
 
     public function getPersonalDocuments(Request $request)

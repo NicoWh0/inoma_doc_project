@@ -394,14 +394,14 @@
     justify-content: center;
     width: 50%;
     padding: 1.2rem;
-    margin-top: 1em;
+    margin: 1rem 0;
     background-color: #ffffff;
     border: 1px solid #bebebe;
     border-radius: 5px;
     box-shadow: 0 0 3px 2px #00000041;
 }
 
-.doc-view-main-info, .doc-view-users, .doc-view-links, .doc-view-dates {
+.doc-view-users, .doc-view-links, .doc-view-dates {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -411,9 +411,150 @@
     text-align: center;
 }
 
+.doc-view-main-info {
+    position: relative;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: repeat(2, 1fr);
+    width: 80%;
+    text-align: center;
+    border-bottom: 1px solid #bebebe;
+}
+
+.doc-view-main-info .info-title {
+    font-weight: 500;
+    border-right: 1px solid #bebebe;
+}
+
+.doc-view-main-info .info-title.bold {
+    font-weight: 600;
+}
+
+.doc-view-main-info h2, .doc-view-main-info p {
+    margin: 0;
+    padding: 0.6rem;
+}
+
+.doc-view-main-info .doc-description {
+    overflow: hidden;
+    max-height: 120px;
+}
+
+.doc-view-main-info .doc-description.overflowing::before {
+    content:'';
+    width:100%;
+    height:100%;
+    position:absolute;
+    left:0;
+    top:0;
+    background:linear-gradient(transparent 200px, white);
+}
+
+.doc-view-main-info.expanded .doc-description {
+    max-height: 100%;
+    margin-bottom: 0.8rem;
+    transition: max-height 0.25s ease;
+}
+
+.doc-view-main-info.expanded .doc-description.overflowing::before {
+    display: none;
+}
+
+.doc-view-main-info .desc-show-more-btn {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 0.75em;
+    font-weight: 600;
+    border: none;
+    background: transparent;
+    color: black;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.doc-view-main-info .desc-show-more-btn:hover {
+    color: var(--color-red);
+}
+
+.doc-view-main-info .doc-description.overflowing + .desc-show-more-btn {
+    display: block;
+}
+
 .doc-view-users {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    border-bottom: 1px solid #bebebe;
     max-height: 200px;
+    overflow: hidden;
+    margin: 1.5rem 0;
+    width: 85%;
+}
+
+.doc-view-users.expanded {
+    max-height: 100%;
     margin-bottom: 1.5rem;
+    transition: max-height 0.25s ease;
+}
+
+.doc-view-users .doc-view-users-title {
+    margin: 0;
+    padding: 0.3rem;
+}
+
+.doc-view-users .doc-view-users-number {
+    font-size: 0.9em;
+    margin: 0;
+    margin-bottom: 1.3rem;
+    color: #1b1b1b;
+}
+
+.doc-view-users-list {
+    list-style: none;
+    padding: 0.5rem;
+}
+
+.doc-view-users-list-item {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    margin: 0;
+    padding: 0.5em 0;
+    width: 100%;
+    border-top: 1px solid #bebebe9d;
+}
+
+.doc-view-users-list-item p {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: left;
+}
+
+.users-show-more-btn {
+    display: none;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 0.75em;
+    font-weight: 600;
+    border: none;
+    background: transparent;
+    color: black;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.users-show-more-btn:hover {
+    color: var(--color-red);
+}
+
+.doc-view-users-list.overflowing + .users-show-more-btn {
+    display: block;
 }
 
 .doc-view-dates {
@@ -441,3 +582,4 @@
 .doc-view-links a:hover {
     color: var(--color-red);
 }
+

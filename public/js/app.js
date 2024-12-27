@@ -7030,13 +7030,14 @@ function DocModify() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     console.log('DocModify params:', params);
     _components_axios_AxiosInterceptor__WEBPACK_IMPORTED_MODULE_1__.instance.get("/documentation/docs/".concat(params.id)).then(function (response) {
-      var _response$data$descri;
-      console.log('Document data:', response.data);
+      var _document$description;
+      console.log('Document data:', response.data.document);
+      var document = response.data.document;
       setDocData({
-        title: response.data.title,
-        description: (_response$data$descri = response.data.description) !== null && _response$data$descri !== void 0 ? _response$data$descri : '',
-        category_id: response.data.category_id,
-        users: response.data.users
+        title: document.title,
+        description: (_document$description = document.description) !== null && _document$description !== void 0 ? _document$description : '',
+        category_id: document.category_id,
+        users: document.users
       });
       setDone(true);
     })["catch"](function (error) {
@@ -7538,12 +7539,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-D52XG6IA.mjs");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-D52XG6IA.mjs");
 /* harmony import */ var _components_axios_AxiosInterceptor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/axios/AxiosInterceptor */ "./resources/react/components/axios/AxiosInterceptor.jsx");
 /* harmony import */ var _components_general_Loader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/general/Loader */ "./resources/react/components/general/Loader.jsx");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -7555,9 +7554,8 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 
-
 function DocView() {
-  var params = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.useParams)();
+  var params = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.useParams)();
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
     _useState2 = _slicedToArray(_useState, 2),
     docData = _useState2[0],
@@ -7570,6 +7568,26 @@ function DocView() {
     _useState6 = _slicedToArray(_useState5, 2),
     done = _useState6[0],
     setDone = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState8 = _slicedToArray(_useState7, 2),
+    isDescOverflowing = _useState8[0],
+    setIsDescOverflowing = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState10 = _slicedToArray(_useState9, 2),
+    isDescExpanded = _useState10[0],
+    setIsDescExpanded = _useState10[1];
+  var mainInfoRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var descriptionRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState12 = _slicedToArray(_useState11, 2),
+    areUsersOverflowing = _useState12[0],
+    setAreUsersOverflowing = _useState12[1];
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState14 = _slicedToArray(_useState13, 2),
+    areUsersExpanded = _useState14[0],
+    setAreUsersExpanded = _useState14[1];
+  var usersBoxRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var usersListRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var dataFormat = {
     weekday: 'long',
     year: 'numeric',
@@ -7578,6 +7596,31 @@ function DocView() {
     hour: 'numeric',
     minute: 'numeric'
   };
+  var checkOverflow = function checkOverflow() {
+    var mainInfoElement = mainInfoRef.current;
+    var descElement = descriptionRef.current;
+    var usersBoxElement = usersBoxRef.current;
+    var usersListElement = usersListRef.current;
+    if (mainInfoElement && descElement && !mainInfoElement.classList.contains('expanded')) {
+      setIsDescOverflowing(descElement.scrollHeight > descElement.clientHeight);
+    }
+    if (usersBoxElement && usersListElement && !usersBoxElement.classList.contains('expanded')) {
+      setAreUsersOverflowing(usersBoxElement.scrollHeight > usersBoxElement.clientHeight);
+    }
+  };
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    checkOverflow();
+    var handleResize = function handleResize() {
+      checkOverflow();
+    };
+    window.addEventListener('resize', handleResize);
+    return function () {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [done]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (done) checkOverflow();
+  }, [done, isDescExpanded, areUsersExpanded]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     _components_axios_AxiosInterceptor__WEBPACK_IMPORTED_MODULE_1__.instance.get('api/categories').then(function (response) {
       console.log('Categories:', response.data);
@@ -7589,31 +7632,46 @@ function DocView() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     console.log('DocModify params:', params);
     _components_axios_AxiosInterceptor__WEBPACK_IMPORTED_MODULE_1__.instance.get("/documentation/docs/".concat(params.id)).then(function (response) {
-      var _response$data$descri;
+      var _document$description;
       console.log('Document data:', response.data);
+      var document = response.data.document;
       setDocData({
-        title: response.data.title,
-        description: (_response$data$descri = response.data.description) !== null && _response$data$descri !== void 0 ? _response$data$descri : '',
-        category_id: response.data.category_id,
-        users: response.data.users,
-        uploadedAt: response.data.created_at,
-        lastModified: response.data.updated_at
+        title: document.title,
+        description: (_document$description = document.description) !== null && _document$description !== void 0 ? _document$description : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("em", {
+          children: "Nessuna descrizione"
+        }),
+        file_type: response.data.file_type,
+        category_id: document.category_id,
+        users: document.users,
+        uploadedAt: document.created_at,
+        lastModified: document.updated_at
       });
       setDone(true);
     })["catch"](function (error) {
       console.error('Error fetching document data:', error);
     });
   }, [params]);
+  var handleDescExpand = function handleDescExpand() {
+    setIsDescExpanded(function (isDescExpanded) {
+      return !isDescExpanded;
+    });
+  };
+  var handleUsersExpand = function handleUsersExpand() {
+    setAreUsersExpanded(function (areUsersExpanded) {
+      return !areUsersExpanded;
+    });
+  };
   var renderUsers = function renderUsers() {
     return docData.users.map(function (user, index) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("ul", {
+        className: "doc-view-users-list-item",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
             className: "color-red",
-            children: "Utente: "
+            children: "Nome utente: "
           }), user.username]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
             className: "color-red",
             children: "Email: "
           }), user.email]
@@ -7621,67 +7679,93 @@ function DocView() {
       }, index);
     });
   };
-  return !done ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_components_general_Loader__WEBPACK_IMPORTED_MODULE_2__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+  return !done ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_general_Loader__WEBPACK_IMPORTED_MODULE_2__["default"], {}) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: "doc-view-page",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h1", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h1", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
         className: "color-red",
         children: "Visualizza"
       }), " Documento"]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
-      to: "/documentation/management",
-      children: "Torna alla gestione"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "doc-view-container",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        className: "doc-view-main-info",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h2", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-            className: "color-red",
-            children: "Titolo: "
-          }), docData.title]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-            className: "color-red",
-            children: "Categoria: "
-          }), categories[docData.category_id]]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-            className: "color-red",
-            children: "Descrizione: "
-          }), docData.description]
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        ref: mainInfoRef,
+        className: "doc-view-main-info ".concat(isDescExpanded ? 'expanded' : ''),
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
+          className: "color-red info-title bold",
+          children: "Titolo:"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h2", {
+          children: docData.title
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          className: "color-red info-title",
+          children: "Categoria: "
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          children: categories[docData.category_id]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          className: "color-red info-title",
+          children: "Tipo file: "
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("em", {
+            children: docData.file_type
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          className: "color-red info-title",
+          children: "Descrizione: "
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("p", {
+          ref: descriptionRef,
+          className: "doc-description ".concat(isDescOverflowing ? 'overflowing' : ''),
+          children: docData.description
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+          className: "desc-show-more-btn",
+          onClick: handleDescExpand,
+          children: isDescExpanded ? 'Mostra meno' : 'Mostra di più'
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-        className: "doc-view-users",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h2", {
-          children: "Utenti con accesso:"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
-            children: ["Numero di utenti: ", docData.users.length]
-          }), renderUsers()]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        ref: usersBoxRef,
+        className: "doc-view-users ".concat(areUsersExpanded ? 'expanded' : ''),
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h2", {
+          className: "doc-view-users-title",
+          children: ["Utenti con ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+            className: "color-red",
+            children: "accesso"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h3", {
+          className: "doc-view-users-number",
+          children: ["Numero di utenti: ", docData.users.length]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+          ref: usersListRef,
+          className: "doc-view-users-list ".concat(areUsersOverflowing ? 'overflowing' : ''),
+          children: renderUsers()
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+          className: "users-show-more-btn",
+          onClick: handleUsersExpand,
+          children: areUsersExpanded ? 'Mostra meno' : 'Mostra tutti'
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "doc-view-dates",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
             className: "color-red",
             children: "Caricato: "
           }), new Date(docData.uploadedAt).toLocaleString('it-IT', dataFormat)]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("p", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
             className: "color-red",
             children: "Ultima modifica: "
           }), new Date(docData.lastModified).toLocaleString('it-IT', dataFormat)]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "doc-view-links",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
           to: "/documentation/management/".concat(params.id, "/edit"),
           children: "Modifica documento"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.Link, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
           children: "Scarica documento"
         })]
       })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_4__.Link, {
+      to: "/documentation/management",
+      children: "Torna alla gestione"
     })]
   });
 }

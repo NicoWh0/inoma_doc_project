@@ -36,13 +36,13 @@ export default function DocModify() {
     useEffect(() => {
         console.log('DocModify params:', params);
         axios.get(`/documentation/docs/${params.id}`).then(response => {
-            console.log('Document data:', response.data);
-
+            console.log('Document data:', response.data.document);
+            const document = response.data.document;
             setDocData({
-                title: response.data.title,
-                description: response.data.description ?? '',
-                category_id: response.data.category_id,
-                users: response.data.users
+                title: document.title,
+                description: document.description ?? '',
+                category_id: document.category_id,
+                users: document.users
             });
             setDone(true);
         }).catch(error => {
